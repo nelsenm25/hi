@@ -4,69 +4,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Testerz - Uncover the Flaws</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Styles */
-        body {
-            font-family: 'Roboto', sans-serif;
+        /* CSS Reset and General Styles */
+        body, h1, h2, h3, p, ul, li, a {
             margin: 0;
             padding: 0;
-            background-color: #0f0f0f;
-            color: #e0e0e0;
-            overflow-x: hidden;
-            overflow-y: auto;
-            line-height: 1.6;
-            display: flex; /* Added to center content vertically */
-            flex-direction: column; /* Added to ensure content flows correctly */
-            min-height: 100vh; /* Ensure full viewport height */
+            list-style: none;
+            text-decoration: none;
         }
 
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0d1117; /* Dark background */
+            color: #f0f0f0; /* Light text */
+            line-height: 1.7;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Header Styles */
         header {
-            background: linear-gradient(to right, #2c3e50, #34495e);
-            padding: 25px 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to right, #1e293b, #27344a);
+            padding: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 100;
+
         }
 
         header .container {
             display: flex;
-            justify-content: space-between; /* Distribute space between title and nav */
-            align-items: center; /* Vertically align items */
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
-            margin: 0;
-            font-size: 2.8em;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 4px #000;
+            font-size: 2.5em;
             color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            letter-spacing: 1px;
+            font-weight: 600;
+
         }
 
         nav {
-            display: flex; /* Ensure nav items are in a row */
+           display: flex;
+           justify-content: flex-end;
+           gap: 15px;
         }
 
         nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px; /* Reduced margin for better spacing */
-            font-size: 1.2em;
+            color: #e0e0e0;
+            font-size: 1.1em;
+            padding: 10px 15px;
             transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+         nav a:hover {
+            color: #5eead4; /* Hover text color */
         }
 
 
-        nav a:hover {
-            color: #00bcd4;
+        /* Hero Section */
+       .hero-section {
+            padding: 100px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex: 1;
+            position: relative;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px; /* Add horizontal padding */
-            box-sizing: border-box; /* Include padding in the width calculation */
+        .hero-section h2 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px #000;
+            color: #fff;
+            font-weight: 700;
+            max-width: 90%;
         }
 
-        .hero-section {
+        .hero-section p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            color: #ddd;
+             max-width: 80%;
+
+        }
+
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #4fd1c5, #2dd4bf);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
+        }
+
+
+        .btn:hover {
+            background: linear-gradient(to right, #3ba89a, #25b2a0); /* Hover background */
+        }
+
+        /* Services Section */
+        .services-section {
             padding: 80px 0;
+        }
+
+       .services-section h2 {
+           font-size: 2.8em;
+           margin-bottom: 50px;
+           text-shadow: 2px 2px 4px #000;
+           color: #fff;
+           text-align: center;
+            font-weight: 600;
+       }
+
+       .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+
+       .service-item {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+             height: 100%;
+           display: flex;
+           flex-direction: column;
+       }
+
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-item h3 {
+            font-size: 1.7em;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+         .service-item p {
+             font-size: 1.05em;
+             line-height: 1.6;
+             color: #aaa;
+             flex: 1; /* Let the <p> take all available vertical space. */
+         }
+
+
+       /* Testimonials Section */
+        .testimonials-section {
+            background-color: #1a2432;
+            padding: 80px 0;
+        }
+
+       .testimonials-section h2 {
+           font-size: 2.8em;
+           margin-bottom: 50px;
+           text-shadow: 2px 2px 4px #000;
+           color: #fff;
+           text-align: center;
+           font-weight: 600;
+       }
+
+
+       .testimonial-slider {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: #2a384d;
+            padding: 30px;
+            border-radius: 8px;
+            min-width: 350px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            flex: 0 0 auto;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+       .testimonial-card .author {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -75,176 +231,54 @@
             flex: 1;
         }
 
-        .hero-section h2 {
-            font-size: 3.2em;
-            margin-bottom: 25px;
-            text-shadow: 2px 2px 4px #000;
-            color: #fff;
-             max-width: 90%; /* added */
-        }
 
-        .hero-section p {
-             font-size: 1.2em;
-             margin-bottom: 35px;
-             line-height: 1.7;
-             max-width: 80%; /* added */
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: #00bcd4;
-            color: #fff;
-            padding: 16px 32px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            font-size: 1.1em;
-            font-weight: 500;
-        }
-
-        .btn:hover {
-            background-color: #00a2b8;
-        }
-
-        .services-section {
-            padding: 80px 0;
-        }
-
-        .services-section h2 {
-            font-size: 2.8em;
-            margin-bottom: 50px;
-            text-shadow: 2px 2px 4px #000;
-            color: #fff;
-        }
-
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 30px;
-        }
-
-        .service-item {
-            background-color: #1e1e1e;
-            padding: 35px;
-            border-radius: 8px;
-            text-align: left;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .service-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .service-item h3 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .service-item p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #aaa;
-        }
-
-        .testimonials-section {
-            background-color: #1a1a1a;
-            padding: 80px 0;
-        }
-
-        .testimonials-section h2 {
-            font-size: 2.8em;
-            margin-bottom: 50px;
-            text-shadow: 2px 2px 4px #000;
-            color: #fff;
-        }
-
-        .testimonial-slider {
-            display: flex;
-            overflow-x: auto;
-            padding-bottom: 20px;
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            background-color: #2a2a2a;
-            padding: 30px;
-            border-radius: 8px;
-            min-width: 350px;
-            text-align: left;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .testimonial-card p {
-            font-style: italic;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            color: #ddd;
-        }
-
-        .testimonial-card .author {
-            font-weight: bold;
-            color: #fff;
-        }
-
-       .contact-section {
-             padding: 80px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-             flex: 1;
-         }
-
-        .contact-section h2 {
+         .contact-section h2 {
              font-size: 2.8em;
              margin-bottom: 30px;
              text-shadow: 2px 2px 4px #000;
              color: #fff;
-             max-width: 90%;
+            font-weight: 600;
+            max-width: 90%;
          }
 
          .contact-section p {
              font-size: 1.2em;
-             margin-bottom: 20px;
+             margin-bottom: 30px;
              color: #ddd;
-             max-width: 80%;
+              max-width: 80%;
          }
 
-         .contact-section a {
+       .contact-section a {
            display: inline-block;
-           background-color: #00bcd4;
-           color: #fff;
-           padding: 16px 32px;
-           text-decoration: none;
+           background: linear-gradient(to right, #4fd1c5, #2dd4bf);
+            color: #fff;
+            padding: 16px 32px;
            border-radius: 5px;
-           transition: background-color 0.3s ease;
            font-size: 1.1em;
             font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+           transition: background 0.3s ease;
+
         }
 
         .contact-section a:hover {
-           background-color: #00a2b8;
+            background: linear-gradient(to right, #3ba89a, #25b2a0);
         }
 
+
+        /* Footer */
         footer {
-            background-color: #2c3e50;
+            background-color: #1e293b;
             padding: 25px 0;
             text-align: center;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-            margin-top: auto; /* Push footer to bottom */
+            margin-top: auto;
         }
 
-
-        footer p {
-            color: #ddd;
+       footer p {
+           color: #ddd;
         }
-
-        /* 3D Animation Styles */
+    /* --- 3D Animation Styles --- */
         #animated-sphere-container {
             position: absolute;
             top: 20%;
@@ -255,6 +289,7 @@
             pointer-events: none;
             z-index: -1;
             perspective: 500px;
+            opacity: 0.8;
         }
 
         #animated-sphere {
@@ -266,57 +301,57 @@
             border-radius: 50%;
         }
 
-        .sphere-segment {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #00bcd4 30%, #00a2b8 70%);
-            opacity: 0.8;
-            transform: rotateY(0deg);
-            transform-style: preserve-3d;
-        }
+         .sphere-segment {
+             position: absolute;
+             width: 200px;
+             height: 200px;
+             border-radius: 50%;
+            background: linear-gradient(145deg, #4fd1c5 30%, #2dd4bf 70%);
+             opacity: 0.8;
+             transform: rotateY(0deg);
+             transform-style: preserve-3d;
+         }
 
-        .sphere-segment:nth-child(1) {
-            transform: rotateX(20deg) rotateZ(45deg) translateZ(50px);
-        }
+         .sphere-segment:nth-child(1) {
+             transform: rotateX(20deg) rotateZ(45deg) translateZ(50px);
+         }
 
-        .sphere-segment:nth-child(2) {
-            transform: rotateX(40deg) rotateZ(135deg) translateZ(50px);
-        }
+         .sphere-segment:nth-child(2) {
+             transform: rotateX(40deg) rotateZ(135deg) translateZ(50px);
+         }
 
-        .sphere-segment:nth-child(3) {
-            transform: rotateX(60deg) rotateZ(225deg) translateZ(50px);
-        }
+         .sphere-segment:nth-child(3) {
+             transform: rotateX(60deg) rotateZ(225deg) translateZ(50px);
+         }
 
-        .sphere-segment:nth-child(4) {
-            transform: rotateX(80deg) rotateZ(315deg) translateZ(50px);
-        }
+         .sphere-segment:nth-child(4) {
+             transform: rotateX(80deg) rotateZ(315deg) translateZ(50px);
+         }
 
-        .sphere-segment:nth-child(5) {
-            transform: rotateX(100deg) rotateZ(45deg) translateZ(50px);
-        }
+         .sphere-segment:nth-child(5) {
+             transform: rotateX(100deg) rotateZ(45deg) translateZ(50px);
+         }
 
-        .sphere-segment:nth-child(6) {
-            transform: rotateX(120deg) rotateZ(135deg) translateZ(50px);
-        }
+         .sphere-segment:nth-child(6) {
+             transform: rotateX(120deg) rotateZ(135deg) translateZ(50px);
+         }
 
-        .sphere-segment:nth-child(7) {
-            transform: rotateX(140deg) rotateZ(225deg) translateZ(50px);
-        }
+         .sphere-segment:nth-child(7) {
+             transform: rotateX(140deg) rotateZ(225deg) translateZ(50px);
+         }
 
-        .sphere-segment:nth-child(8) {
-            transform: rotateX(160deg) rotateZ(315deg) translateZ(50px);
-        }
+         .sphere-segment:nth-child(8) {
+             transform: rotateX(160deg) rotateZ(315deg) translateZ(50px);
+         }
 
-        @keyframes rotateSphere {
-            0% {
-                transform: rotateY(0deg);
-            }
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
+         @keyframes rotateSphere {
+             0% {
+                 transform: rotateY(0deg);
+             }
+             100% {
+                 transform: rotateY(360deg);
+             }
+         }
 
         #logo-3d-container {
             position: absolute;
@@ -341,8 +376,8 @@
             position: absolute;
             width: 100px;
             height: 100px;
-            background: rgba(0, 188, 212, 0.4);
-            border: 1px solid #00bcd4;
+            background: rgba(79, 209, 197, 0.4);
+            border: 1px solid #4fd1c5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -386,15 +421,15 @@
             }
         }
 
-        /* Parallax Background */
-        #animated-sphere-container {
+         /* Parallax Background */
+       #animated-sphere-container {
             transition: transform 0.3s ease;
         }
 
         /* Animated service Icons */
         .service-item:hover h3 {
             animation: pulseIcon 0.8s ease-in-out;
-            color: #00bcd4;
+            color: #5eead4;
         }
 
         @keyframes pulseIcon {
@@ -409,17 +444,15 @@
             }
         }
 
-
         /* 3D Rotating Text */
         #rotating-text-container {
-            position: absolute;
+             position: absolute;
             bottom: 5%;
             left: 10%;
-            transform: translateX(-50%);
+             transform: translateX(-50%);
             perspective: 800px;
             pointer-events: none;
             z-index: -1;
-
         }
 
         #rotating-text {
@@ -431,115 +464,113 @@
         }
 
         .text-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
+           position: absolute;
+           width: 100%;
+           height: 100%;
+           display: flex;
             justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
-            color: #fff;
-            font-weight: bold;
-            backface-visibility: hidden;
-
-        }
+           align-items: center;
+           font-size: 1.5em;
+           color: #fff;
+           font-weight: bold;
+           backface-visibility: hidden;
+       }
 
         .text-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(50px);
-            background: rgba(0, 188, 212, 0.5);
-        }
+             transform: rotateY(0deg) translateZ(50px);
+           background: rgba(79, 209, 197, 0.5);
+       }
 
         .text-face:nth-child(2) {
             transform: rotateY(90deg) translateZ(100px);
-            background: rgba(0, 188, 212, 0.5);
+            background: rgba(79, 209, 197, 0.5);
         }
 
         .text-face:nth-child(3) {
-            transform: rotateY(180deg) translateZ(50px);
-            background: rgba(0, 188, 212, 0.5);
-        }
+           transform: rotateY(180deg) translateZ(50px);
+            background: rgba(79, 209, 197, 0.5);
+       }
 
         .text-face:nth-child(4) {
             transform: rotateY(270deg) translateZ(100px);
-            background: rgba(0, 188, 212, 0.5);
+            background: rgba(79, 209, 197, 0.5);
         }
 
         @keyframes rotateText {
-            from {
-                transform: rotateY(0deg);
-            }
-            to {
+           from {
+               transform: rotateY(0deg);
+           }
+           to {
                 transform: rotateY(360deg);
-            }
+           }
         }
          /* 3D Spinning Cube */
-         #spinning-cube-container {
-            position: absolute;
-            top: 55%;
-            left: 80%;
-            transform: translate(-50%, -50%);
-            perspective: 800px;
+        #spinning-cube-container {
+             position: absolute;
+             top: 55%;
+             left: 80%;
+             transform: translate(-50%, -50%);
+             perspective: 800px;
             pointer-events: none;
-            z-index: -1;
+             z-index: -1;
              opacity: 0.7;
         }
 
         #spinning-cube {
             width: 100px;
             height: 100px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: spinCube 12s linear infinite;
-        }
+             position: relative;
+             transform-style: preserve-3d;
+             animation: spinCube 12s linear infinite;
+         }
 
-        .cube-face {
+         .cube-face {
             position: absolute;
-            width: 100px;
+           width: 100px;
             height: 100px;
-            background: rgba(0, 188, 212, 0.6);
-            border: 1px solid #00bcd4;
+             background: rgba(79, 209, 197, 0.6);
+            border: 1px solid #4fd1c5;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 1.5em;
-            color: #fff;
-            font-weight: bold;
+             color: #fff;
+           font-weight: bold;
         }
 
         .cube-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(50px);
+           transform: rotateY(0deg) translateZ(50px);
         }
 
         .cube-face:nth-child(2) {
-            transform: rotateX(90deg) translateZ(50px);
+           transform: rotateX(90deg) translateZ(50px);
         }
 
-        .cube-face:nth-child(3) {
+       .cube-face:nth-child(3) {
             transform: rotateY(90deg) translateZ(50px);
         }
 
         .cube-face:nth-child(4) {
-            transform: rotateX(-90deg) translateZ(50px);
+             transform: rotateX(-90deg) translateZ(50px);
         }
 
         .cube-face:nth-child(5) {
             transform: rotateY(180deg) translateZ(50px);
         }
 
-        .cube-face:nth-child(6) {
-            transform: rotateY(-90deg) translateZ(50px);
-        }
+       .cube-face:nth-child(6) {
+           transform: rotateY(-90deg) translateZ(50px);
+       }
 
         @keyframes spinCube {
             from {
                 transform: rotateX(0deg) rotateY(0deg);
             }
-            to {
+             to {
                 transform: rotateX(360deg) rotateY(360deg);
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -547,11 +578,11 @@
     <div class="container">
         <h1>Game Testerz</h1>
         <nav>
-            <a href="#home">Home</a>
+             <a href="#home">Home</a>
             <a href="#services">Services</a>
             <a href="#testimonials">Testimonials</a>
             <a href="#contact">Contact</a>
-            <a href="Projects.html">Past Projects</a>
+             <a href="Projects.html">Past Projects</a>
         </nav>
     </div>
 </header>
@@ -614,7 +645,7 @@
         <div class="service-grid">
             <div class="service-item">
                 <h3>Functional Bug Testing</h3>
-                <p>Ensure all game mechanics function as designed and as intended to eliminate game breaking bugs</p>
+                <p>Ensure all game mechanics function as designed and as intended to eliminate game breaking bugs.</p>
             </div>
             <div class="service-item">
                 <h3>Performance Optimization</h3>
@@ -676,16 +707,15 @@
         <p>© 2024 Game Testerz. All rights reserved.</p>
     </div>
 </footer>
+
 <script>
-
-
     // Parallax Effect
     window.addEventListener('scroll', function () {
         const scrollPosition = window.scrollY;
         const sphereContainer = document.getElementById("animated-sphere-container");
         sphereContainer.style.transform = `translate(-50%, -50%) translateY(${scrollPosition * 0.1}px)`;
     });
-
 </script>
+
 </body>
 </html>
