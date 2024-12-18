@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Testerz - Uncover the Flaws</title>
+    <title>Game Testerz - Past Projects</title>
     <style>
         /* CSS Styles */
         body {
@@ -31,83 +31,31 @@
             color: #fff;
         }
 
-        nav {
-            margin-top: 20px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 25px;
-            font-size: 1.2em;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #00bcd4;
-        }
-
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
             text-align: center;
         }
-
-        .hero-section {
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section h2 {
-            font-size: 3.2em;
-            margin-bottom: 25px;
-            text-shadow: 2px 2px 4px #000;
-            color: #fff;
-        }
-
-        .hero-section p {
-            font-size: 1.2em;
-            margin-bottom: 35px;
-            line-height: 1.7;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: #00bcd4;
-            color: #fff;
-            padding: 16px 32px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            font-size: 1.1em;
-            font-weight: 500;
-        }
-
-        .btn:hover {
-            background-color: #00a2b8;
-        }
-
-        .services-section {
+         .projects-section {
             padding: 80px 0;
         }
 
-        .services-section h2 {
+        .projects-section h2 {
             font-size: 2.8em;
             margin-bottom: 50px;
             text-shadow: 2px 2px 4px #000;
             color: #fff;
         }
 
-        .service-grid {
+        .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
             margin-top: 30px;
         }
 
-        .service-item {
+        .project-item {
             background-color: #1e1e1e;
             padding: 35px;
             border-radius: 8px;
@@ -116,142 +64,22 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .service-item:hover {
+        .project-item:hover {
             transform: translateY(-8px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
 
-        .service-item h3 {
+        .project-item h3 {
             font-size: 1.8em;
             margin-bottom: 20px;
             color: #fff;
         }
 
-        .service-item p {
+        .project-item p {
             font-size: 1.1em;
             line-height: 1.6;
             color: #aaa;
         }
-
-        .testimonials-section {
-            background-color: #1a1a1a;
-            padding: 80px 0;
-        }
-
-        .testimonials-section h2 {
-            font-size: 2.8em;
-            margin-bottom: 50px;
-            text-shadow: 2px 2px 4px #000;
-            color: #fff;
-        }
-
-        .testimonial-slider {
-            display: flex;
-            overflow-x: auto;
-            padding-bottom: 20px;
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            background-color: #2a2a2a;
-            padding: 30px;
-            border-radius: 8px;
-            min-width: 350px;
-            text-align: left;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .testimonial-card p {
-            font-style: italic;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            color: #ddd;
-        }
-
-        .testimonial-card .author {
-            font-weight: bold;
-            color: #fff;
-        }
-
-         .contact-section {
-            padding: 80px 0;
-        }
-
-        .contact-section h2 {
-            font-size: 2.8em;
-            margin-bottom: 50px;
-            text-shadow: 2px 2px 4px #000;
-            color: #fff;
-        }
-
-         .contact-info {
-            max-width: 600px;
-             margin: 0 auto;
-             text-align: center;
-            margin-bottom: 20px;
-        }
-
-          .contact-info p {
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-         .contact-info a {
-             color: #00bcd4;
-             text-decoration: none;
-            transition: color 0.3s ease;
-          }
-         .contact-info a:hover {
-             color: #00a2b8;
-         }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-form label {
-            margin-bottom: 10px;
-            text-align: left;
-            color: #ddd;
-        }
-
-        .contact-form input, .contact-form textarea {
-            padding: 12px;
-            margin-bottom: 20px;
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
-
-        .contact-form input:focus, .contact-form textarea:focus {
-            border-color: #00bcd4;
-            outline: none;
-        }
-
-        .contact-form textarea {
-            resize: vertical;
-        }
-
-        .contact-form button {
-            background-color: #00bcd4;
-            color: #fff;
-            border: none;
-            padding: 16px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1.1em;
-            font-weight: 500;
-        }
-
-        .contact-form button:hover {
-            background-color: #00a2b8;
-        }
-
         footer {
             background-color: #2c3e50;
             padding: 25px 0;
@@ -381,6 +209,13 @@
             transform: rotateY(90deg) translateZ(50px);
         }
 
+        .logo-face:nth-child(3) {
+             transform: rotateY(180deg) translateZ(50px);
+         }
+
+        .logo-face:nth-child(4) {
+            transform: rotateY(-90deg) translateZ(50px);
+         }
 
 
         @keyframes floatLogo {
@@ -407,7 +242,7 @@
         }
 
         /* Animated service Icons */
-        .service-item:hover h3 {
+        .project-item:hover h3 {
             animation: pulseIcon 0.8s ease-in-out;
             color: #00bcd4;
         }
@@ -424,7 +259,7 @@
             }
         }
 
-        /* Mouse Following Icon */
+         /* Mouse Following Icon */
         #mouse-icon {
             position: absolute;
              width: 40px;
@@ -443,6 +278,7 @@
         #mouse-icon.visible {
             opacity: 1;
         }
+
 
        /* 3D Rotating Text */
         #rotating-text-container {
@@ -571,8 +407,6 @@
                 transform: rotateX(360deg) rotateY(360deg);
             }
         }
-
-
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -580,28 +414,19 @@
 
 <header>
     <div class="container">
-        <h1>Game Testerz</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about">About Us</a>
-            <a href="/services">Services</a>
-            <a href="/testimonials">Testimonials</a>
-             <a href="/faq">FAQ</a>
-            <a href="/projects">Projects</a>
-            <a href="/contact">Contact</a>
-        </nav>
+        <h1>Game Testerz - Past Projects</h1>
     </div>
 </header>
-
-    <div style="position: relative;">
+ <div style="position: relative;">
         <div id="logo-3d-container">
              <div id="logo-3d">
                 <div class="logo-face">G</div>
+                 <div class="logo-face">T</div>
+                 <div class="logo-face">G</div>
                 <div class="logo-face">T</div>
             </div>
         </div>
-
-        <div id="animated-sphere-container">
+         <div id="animated-sphere-container">
             <div id="animated-sphere">
                 <div class="sphere-segment"></div>
                 <div class="sphere-segment"></div>
@@ -612,114 +437,59 @@
                 <div class="sphere-segment"></div>
                 <div class="sphere-segment"></div>
             </div>
-        </div>
+         </div>
            <div id="rotating-text-container">
               <div id="rotating-text">
-                <div class="text-face">Game</div>
-                <div class="text-face">Testerz</div>
-                 <div class="text-face">Game</div>
+                  <div class="text-face">Game</div>
                  <div class="text-face">Testerz</div>
-            </div>
-        </div>
-
+                <div class="text-face">Game</div>
+                  <div class="text-face">Testerz</div>
+             </div>
+         </div>
          <div id="spinning-cube-container">
             <div id="spinning-cube">
                  <div class="cube-face">Test</div>
                  <div class="cube-face">Your</div>
-                 <div class="cube-face">Game</div>
+                <div class="cube-face">Game</div>
                  <div class="cube-face">With</div>
                 <div class="cube-face">Game</div>
                 <div class="cube-face">Testerz</div>
-            </div>
-        </div>
+             </div>
+         </div>
 </div>
-
-
-<div id="mouse-icon"></div>
-
-
-<section class="hero-section" id="home">
+    <div id="mouse-icon"></div>
+<section class="projects-section">
     <div class="container">
-        <h2>Uncover the Flaws, Elevate Your Game</h2>
-        <p>At Game Testerz, we're dedicated to finding and reporting bugs, glitches, and design flaws in your video
-            game, ensuring a smooth and enjoyable experience for all players.</p>
-        <a href="#contact" class="btn">Contact Us Today</a>
-    </div>
-</section>
-
-<section class="services-section" id="services">
-    <div class="container">
-        <h2>Our Game Testing Services</h2>
-        <div class="service-grid">
-            <div class="service-item">
-                <h3>Functional Bug Testing</h3>
-                <p>Ensure all game mechanics function as designed and as intended to eliminate game breaking bugs</p>
+        <h2>Our Past Projects</h2>
+         <div class="project-grid">
+             <div class="project-item">
+                <h3>Project 1: Awesome Game</h3>
+                <p>This project involved testing the functional aspects of a complex RPG.</p>
             </div>
-            <div class="service-item">
-                <h3>Performance Optimization</h3>
-                <p>We look at frame rates and system load so that there are no performance issues.</p>
+            <div class="project-item">
+                <h3>Project 2: Cool Platformer</h3>
+                <p>Involved rigorous testing of controls and level design.</p>
             </div>
-            <div class="service-item">
-                <h3>Usability and UX Testing</h3>
-                <p>Making the game more user friendly and intuitive so that user satisfaction is maximized.</p>
+             <div class="project-item">
+                <h3>Project 3: Puzzle Game</h3>
+                <p>Tested for logic and progression issues.</p>
             </div>
-            <div class="service-item">
-                <h3>Multi-platform Compatibility</h3>
-                <p>We test on various devices to ensure the game runs smoothly no matter the machine.</p>
+             <div class="project-item">
+                <h3>Project 4: Simulation</h3>
+                <p>Tested user interface and user experience.</p>
             </div>
-            <div class="service-item">
-                <h3>Regression Testing</h3>
-                <p>We make sure that previous fixes are still in place to make sure new builds dont have old bugs.</p>
+              <div class="project-item">
+                <h3>Project 5: Strategy</h3>
+                 <p>Tested balance and Ai in strategic gameplay.</p>
             </div>
-            <div class="service-item">
-                <h3>Localization Testing</h3>
-                <p>We make sure the translation is up to par and any cultural differences are accounted for.</p>
+             <div class="project-item">
+                 <h3>Project 6: Horror</h3>
+                 <p>Tested for atmosphere and immersion breaking bugs.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="testimonials-section" id="testimonials">
-    <div class="container">
-        <h2>Trusted by Game Developers</h2>
-        <div class="testimonial-slider">
-            <div class="testimonial-card">
-                <p>"Game Testerz has been invaluable in uncovering critical issues with our game prior to release,
-                    saving us time and resources!"</p>
-                <div class="author">- Sarah J., Indie Studio Owner</div>
-            </div>
-            <div class="testimonial-card">
-                <p>"The level of detail in their reports is truly impressive. Their insights helped us significantly
-                    improve the overall quality of our project."</p>
-                <div class="author">- Mark S., Lead Programmer</div>
-            </div>
-            <div class="testimonial-card">
-                <p>"Their expertise in usability testing provided us with actionable feedback that made a big difference
-                    to the player experience."</p>
-                <div class="author">- Alex L., Game Designer</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="contact-section" id="contact">
-    <div class="container">
-        <h2>Let's Work Together</h2>
-        <div class="contact-info">
-            <p>Email us at: <a href="mailto:your_email@example.com">your_email@example.com</a></p>
-        </div>
-
-        <form class="contact-form" id="contactForm" >
-             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="message">Message:</label>
-            <textarea id="message" rows="5" name="message" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-</section>
 
 <footer>
     <div class="container">
@@ -728,31 +498,15 @@
 </footer>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const contactForm = document.getElementById('contactForm');
 
-        contactForm.addEventListener('submit', function(event) {
-             event.preventDefault();
-
-              // Just log the data to console since we're not using emailjs
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-
-              console.log("Form Data:", {name, email, message});
-
-        });
-    });
-
-
-    // Parallax Effect
+  // Parallax Effect
     window.addEventListener('scroll', function () {
         const scrollPosition = window.scrollY;
         const sphereContainer = document.getElementById("animated-sphere-container");
         sphereContainer.style.transform = `translate(15%, 5%) translateY(${scrollPosition * 0.1}px)`;
     });
 
-     // Mouse following Icon
+    // Mouse following Icon
     const mouseIcon = document.getElementById('mouse-icon');
 
     document.addEventListener('mousemove', (e) => {
