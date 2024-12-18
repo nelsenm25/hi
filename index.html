@@ -58,9 +58,9 @@
         }
 
         nav {
-           display: flex;
-           justify-content: flex-end;
-           gap: 15px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
         }
 
         nav a {
@@ -71,13 +71,12 @@
             font-weight: 500;
         }
 
-         nav a:hover {
+        nav a:hover {
             color: #5eead4; /* Hover text color */
         }
 
-
         /* Hero Section */
-       .hero-section {
+        .hero-section {
             padding: 100px 0;
             display: flex;
             flex-direction: column;
@@ -101,7 +100,7 @@
             font-size: 1.2em;
             margin-bottom: 40px;
             color: #ddd;
-             max-width: 80%;
+            max-width: 80%;
 
         }
 
@@ -128,16 +127,16 @@
             padding: 80px 0;
         }
 
-       .services-section h2 {
-           font-size: 2.8em;
-           margin-bottom: 50px;
-           text-shadow: 2px 2px 4px #000;
-           color: #fff;
-           text-align: center;
+        .services-section h2 {
+            font-size: 2.8em;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px #000;
+            color: #fff;
+            text-align: center;
             font-weight: 600;
-       }
+        }
 
-       .service-grid {
+        .service-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
@@ -145,16 +144,16 @@
         }
 
 
-       .service-item {
+        .service-item {
             background: #1e293b;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-             height: 100%;
-           display: flex;
-           flex-direction: column;
-       }
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
 
 
         .service-item:hover {
@@ -169,31 +168,31 @@
             font-weight: 600;
         }
 
-         .service-item p {
-             font-size: 1.05em;
-             line-height: 1.6;
-             color: #aaa;
-             flex: 1; /* Let the <p> take all available vertical space. */
-         }
+        .service-item p {
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #aaa;
+            flex: 1; /* Let the <p> take all available vertical space. */
+        }
 
 
-       /* Testimonials Section */
+        /* Testimonials Section */
         .testimonials-section {
             background-color: #1a2432;
             padding: 80px 0;
         }
 
-       .testimonials-section h2 {
-           font-size: 2.8em;
-           margin-bottom: 50px;
-           text-shadow: 2px 2px 4px #000;
-           color: #fff;
-           text-align: center;
-           font-weight: 600;
-       }
+        .testimonials-section h2 {
+            font-size: 2.8em;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px #000;
+            color: #fff;
+            text-align: center;
+            font-weight: 600;
+        }
 
 
-       .testimonial-slider {
+        .testimonial-slider {
             display: flex;
             overflow-x: auto;
             padding-bottom: 20px;
@@ -215,7 +214,7 @@
             color: #ddd;
         }
 
-       .testimonial-card .author {
+        .testimonial-card .author {
             font-weight: bold;
             color: #fff;
         }
@@ -232,32 +231,32 @@
         }
 
 
-         .contact-section h2 {
-             font-size: 2.8em;
-             margin-bottom: 30px;
-             text-shadow: 2px 2px 4px #000;
-             color: #fff;
+        .contact-section h2 {
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px #000;
+            color: #fff;
             font-weight: 600;
             max-width: 90%;
-         }
+        }
 
-         .contact-section p {
-             font-size: 1.2em;
-             margin-bottom: 30px;
-             color: #ddd;
-              max-width: 80%;
-         }
+        .contact-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #ddd;
+            max-width: 80%;
+        }
 
-       .contact-section a {
-           display: inline-block;
-           background: linear-gradient(to right, #4fd1c5, #2dd4bf);
+        .contact-section a {
+            display: inline-block;
+            background: linear-gradient(to right, #4fd1c5, #2dd4bf);
             color: #fff;
             padding: 16px 32px;
-           border-radius: 5px;
-           font-size: 1.1em;
+            border-radius: 5px;
+            font-size: 1.1em;
             font-weight: 500;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-           transition: background 0.3s ease;
+            transition: background 0.3s ease;
 
         }
 
@@ -275,155 +274,29 @@
             margin-top: auto;
         }
 
-       footer p {
-           color: #ddd;
+        footer p {
+            color: #ddd;
         }
-    /* --- 3D Animation Styles --- */
-        #animated-sphere-container {
+
+        /* Spline 3D Model */
+        #spline-container {
             position: absolute;
-            top: 20%;
-            left: 20%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            pointer-events: none;
-            z-index: -1;
-            perspective: 500px;
-            opacity: 0.8;
-        }
-
-        #animated-sphere {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotateSphere 10s linear infinite;
-            border-radius: 50%;
-        }
-
-         .sphere-segment {
-             position: absolute;
-             width: 200px;
-             height: 200px;
-             border-radius: 50%;
-            background: linear-gradient(145deg, #4fd1c5 30%, #2dd4bf 70%);
-             opacity: 0.8;
-             transform: rotateY(0deg);
-             transform-style: preserve-3d;
-         }
-
-         .sphere-segment:nth-child(1) {
-             transform: rotateX(20deg) rotateZ(45deg) translateZ(50px);
-         }
-
-         .sphere-segment:nth-child(2) {
-             transform: rotateX(40deg) rotateZ(135deg) translateZ(50px);
-         }
-
-         .sphere-segment:nth-child(3) {
-             transform: rotateX(60deg) rotateZ(225deg) translateZ(50px);
-         }
-
-         .sphere-segment:nth-child(4) {
-             transform: rotateX(80deg) rotateZ(315deg) translateZ(50px);
-         }
-
-         .sphere-segment:nth-child(5) {
-             transform: rotateX(100deg) rotateZ(45deg) translateZ(50px);
-         }
-
-         .sphere-segment:nth-child(6) {
-             transform: rotateX(120deg) rotateZ(135deg) translateZ(50px);
-         }
-
-         .sphere-segment:nth-child(7) {
-             transform: rotateX(140deg) rotateZ(225deg) translateZ(50px);
-         }
-
-         .sphere-segment:nth-child(8) {
-             transform: rotateX(160deg) rotateZ(315deg) translateZ(50px);
-         }
-
-         @keyframes rotateSphere {
-             0% {
-                 transform: rotateY(0deg);
-             }
-             100% {
-                 transform: rotateY(360deg);
-             }
-         }
-
-        #logo-3d-container {
-            position: absolute;
-            top: 10%;
+            top: 20%; /* Position the container */
             left: 50%;
-            transform: translateX(-50%);
-            perspective: 600px;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.6;
+            transform: translate(-50%, -50%);
+            width: 40%; /* Responsive width */
+            height: 40%;
+            min-width: 300px;
+            min-height: 300px;
+            max-width: 800px;
+            max-height: 800px;
+             pointer-events: none; /* Allow clicks to pass through the iframe */
+              z-index: -1; /* keep behind */
         }
 
-        #logo-3d {
-            width: 100px;
-            height: 100px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: floatLogo 6s ease-in-out infinite, rotateLogo 8s linear infinite;
-        }
-
-        .logo-face {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(79, 209, 197, 0.4);
-            border: 1px solid #4fd1c5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            color: #fff;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-        }
-
-        .logo-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(50px);
-        }
-
-        .logo-face:nth-child(2) {
-            transform: rotateY(90deg) translateZ(50px);
-        }
-
-        .logo-face:nth-child(3) {
-            transform: rotateY(180deg) translateZ(50px);
-        }
-
-        .logo-face:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(50px);
-        }
-
-        @keyframes floatLogo {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        @keyframes rotateLogo {
-            0% {
-                transform: rotateY(0deg);
-            }
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-         /* Parallax Background */
-       #animated-sphere-container {
-            transition: transform 0.3s ease;
+        #spline-container iframe {
+            width: 100%;
+            height: 100%;
         }
 
         /* Animated service Icons */
@@ -444,132 +317,6 @@
             }
         }
 
-        /* 3D Rotating Text */
-        #rotating-text-container {
-             position: absolute;
-            bottom: 5%;
-            left: 10%;
-             transform: translateX(-50%);
-            perspective: 800px;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        #rotating-text {
-            width: 200px;
-            height: 100px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotateText 15s linear infinite;
-        }
-
-        .text-face {
-           position: absolute;
-           width: 100%;
-           height: 100%;
-           display: flex;
-            justify-content: center;
-           align-items: center;
-           font-size: 1.5em;
-           color: #fff;
-           font-weight: bold;
-           backface-visibility: hidden;
-       }
-
-        .text-face:nth-child(1) {
-             transform: rotateY(0deg) translateZ(50px);
-           background: rgba(79, 209, 197, 0.5);
-       }
-
-        .text-face:nth-child(2) {
-            transform: rotateY(90deg) translateZ(100px);
-            background: rgba(79, 209, 197, 0.5);
-        }
-
-        .text-face:nth-child(3) {
-           transform: rotateY(180deg) translateZ(50px);
-            background: rgba(79, 209, 197, 0.5);
-       }
-
-        .text-face:nth-child(4) {
-            transform: rotateY(270deg) translateZ(100px);
-            background: rgba(79, 209, 197, 0.5);
-        }
-
-        @keyframes rotateText {
-           from {
-               transform: rotateY(0deg);
-           }
-           to {
-                transform: rotateY(360deg);
-           }
-        }
-         /* 3D Spinning Cube */
-        #spinning-cube-container {
-             position: absolute;
-             top: 55%;
-             left: 80%;
-             transform: translate(-50%, -50%);
-             perspective: 800px;
-            pointer-events: none;
-             z-index: -1;
-             opacity: 0.7;
-        }
-
-        #spinning-cube {
-            width: 100px;
-            height: 100px;
-             position: relative;
-             transform-style: preserve-3d;
-             animation: spinCube 12s linear infinite;
-         }
-
-         .cube-face {
-            position: absolute;
-           width: 100px;
-            height: 100px;
-             background: rgba(79, 209, 197, 0.6);
-            border: 1px solid #4fd1c5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
-             color: #fff;
-           font-weight: bold;
-        }
-
-        .cube-face:nth-child(1) {
-           transform: rotateY(0deg) translateZ(50px);
-        }
-
-        .cube-face:nth-child(2) {
-           transform: rotateX(90deg) translateZ(50px);
-        }
-
-       .cube-face:nth-child(3) {
-            transform: rotateY(90deg) translateZ(50px);
-        }
-
-        .cube-face:nth-child(4) {
-             transform: rotateX(-90deg) translateZ(50px);
-        }
-
-        .cube-face:nth-child(5) {
-            transform: rotateY(180deg) translateZ(50px);
-        }
-
-       .cube-face:nth-child(6) {
-           transform: rotateY(-90deg) translateZ(50px);
-       }
-
-        @keyframes spinCube {
-            from {
-                transform: rotateX(0deg) rotateY(0deg);
-            }
-             to {
-                transform: rotateX(360deg) rotateY(360deg);
-            }
-        }
     </style>
 </head>
 <body>
@@ -578,56 +325,18 @@
     <div class="container">
         <h1>Game Testerz</h1>
         <nav>
-             <a href="#home">Home</a>
+            <a href="#home">Home</a>
             <a href="#services">Services</a>
             <a href="#testimonials">Testimonials</a>
             <a href="#contact">Contact</a>
-             <a href="Projects.html">Past Projects</a>
+            <a href="Projects.html">Past Projects</a>
         </nav>
     </div>
 </header>
 
-<div id="logo-3d-container">
-    <div id="logo-3d">
-        <div class="logo-face">G</div>
-        <div class="logo-face">T</div>
-        <div class="logo-face">G</div>
-        <div class="logo-face">T</div>
-    </div>
-</div>
 
-<div id="animated-sphere-container">
-    <div id="animated-sphere">
-        <div class="sphere-segment"></div>
-        <div class="sphere-segment"></div>
-        <div class="sphere-segment"></div>
-        <div class="sphere-segment"></div>
-        <div class="sphere-segment"></div>
-        <div class="sphere-segment"></div>
-        <div class="sphere-segment"></div>
-        <div class="sphere-segment"></div>
-    </div>
-</div>
-
-
-<div id="rotating-text-container">
-    <div id="rotating-text">
-        <div class="text-face">Game</div>
-        <div class="text-face">Testerz</div>
-        <div class="text-face">Game</div>
-        <div class="text-face">Testerz</div>
-    </div>
-</div>
-
-<div id="spinning-cube-container">
-    <div id="spinning-cube">
-        <div class="cube-face">Test</div>
-        <div class="cube-face">Your</div>
-        <div class="cube-face">Game</div>
-        <div class="cube-face">With</div>
-        <div class="cube-face">Game</div>
-        <div class="cube-face">Testerz</div>
-    </div>
+<div id="spline-container">
+    <iframe src='https://my.spline.design/realisticvideogamecontrollercopy-57ab69b65b6334b74f9274bf4feb9c9f/' frameborder='0' width='100%' height='100%'></iframe>
 </div>
 
 <section class="hero-section" id="home">
@@ -709,11 +418,11 @@
 </footer>
 
 <script>
-    // Parallax Effect
+     // Parallax Effect
     window.addEventListener('scroll', function () {
         const scrollPosition = window.scrollY;
-        const sphereContainer = document.getElementById("animated-sphere-container");
-        sphereContainer.style.transform = `translate(-50%, -50%) translateY(${scrollPosition * 0.1}px)`;
+        const splineContainer = document.getElementById("spline-container");
+        splineContainer.style.transform = `translate(-50%, -50%) translateY(${scrollPosition * 0.02}px)`;
     });
 </script>
 
