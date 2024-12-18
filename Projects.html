@@ -128,7 +128,7 @@
             flex: 1; /* Let the <p> take all available vertical space. */
         }
 
-         /* Footer */
+        /* Footer */
         footer {
             background-color: #1e293b;
             padding: 25px 0;
@@ -139,6 +139,27 @@
 
         footer p {
             color: #ddd;
+        }
+
+           /* Spline 3D Model */
+        #spline-container {
+            position: absolute;
+            top: 20%; /* Position the container */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40%; /* Responsive width */
+            height: 40%;
+            min-width: 300px;
+            min-height: 300px;
+            max-width: 800px;
+            max-height: 800px;
+             pointer-events: none; /* Allow clicks to pass through the iframe */
+              z-index: -1; /* keep behind */
+        }
+
+        #spline-container iframe {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -156,6 +177,10 @@
         </nav>
     </div>
 </header>
+
+<div id="spline-container">
+    <iframe src='https://my.spline.design/realisticvideogamecontrollercopy-57ab69b65b6334b74f9274bf4feb9c9f/' frameborder='0' width='100%' height='100%'></iframe>
+</div>
 
 <section class="projects-section">
     <div class="container">
