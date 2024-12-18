@@ -570,6 +570,7 @@
             <a href="#services">Services</a>
             <a href="#testimonials">Testimonials</a>
             <a href="#contact">Contact</a>
+             <a href="Projects.html">Past Projects</a>
         </nav>
     </div>
 </header>
@@ -685,7 +686,7 @@
 <section class="contact-section" id="contact">
     <div class="container">
         <h2>Let's Work Together</h2>
-        <form class="contact-form" id="contactForm" action="mailto:your-email@example.com" method="post" enctype="text/plain">
+        <form class="contact-form" id="contactForm">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
             <label for="email">Email:</label>
@@ -696,6 +697,7 @@
         </form>
     </div>
 </section>
+<p id="email-address" style="display: none;">mavn59899@gmail.com</p>
 
 <footer>
     <div class="container">
@@ -709,16 +711,11 @@
 
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault();
+           const emailAddressElement = document.getElementById('email-address');
+           const emailAddress = emailAddressElement.textContent;
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
 
-            const subject = `Contact Request from ${name}`;
-            const body = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
-
-            const mailtoLink = `mailto:mavn59899@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
+        window.location.href = `mailto:${emailAddress}`;
         });
     });
 
