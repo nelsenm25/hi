@@ -4,41 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Testerz - Past Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Styles */
-        body {
-            font-family: 'Roboto', sans-serif;
+        /* CSS Reset and General Styles */
+        body, h1, h2, h3, p, ul, li, a {
             margin: 0;
             padding: 0;
-            background-color: #0f0f0f;
-            color: #e0e0e0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0d1117; /* Dark background */
+            color: #f0f0f0; /* Light text */
+            line-height: 1.7;
             overflow-x: hidden;
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
-
-        header {
-            background: linear-gradient(to right, #2c3e50, #34495e);
-            padding: 25px 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.8em;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 4px #000;
-            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            text-align: center;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
-         .projects-section {
-            padding: 80px 0;
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #1e293b, #27344a);
+            padding: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 100;
+
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            letter-spacing: 1px;
+            font-weight: 600;
+
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #5eead4; /* Hover text color */
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 100px 0;
         }
 
         .projects-section h2 {
@@ -46,450 +85,109 @@
             margin-bottom: 50px;
             text-shadow: 2px 2px 4px #000;
             color: #fff;
+            text-align: center;
+            font-weight: 600;
         }
 
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             margin-top: 30px;
         }
 
+
         .project-item {
-            background-color: #1e1e1e;
-            padding: 35px;
+            background: #1e293b;
+            padding: 30px;
             border-radius: 8px;
-            text-align: left;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
+
         .project-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            transform: translateY(-10px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.5);
         }
 
         .project-item h3 {
-            font-size: 1.8em;
+            font-size: 1.7em;
             margin-bottom: 20px;
             color: #fff;
+            font-weight: 600;
         }
 
         .project-item p {
-            font-size: 1.1em;
+            font-size: 1.05em;
             line-height: 1.6;
             color: #aaa;
+            flex: 1; /* Let the <p> take all available vertical space. */
         }
+
+         /* Footer */
         footer {
-            background-color: #2c3e50;
+            background-color: #1e293b;
             padding: 25px 0;
             text-align: center;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            margin-top: auto;
         }
 
         footer p {
             color: #ddd;
         }
-
-        /* 3D Animation Styles */
-        #animated-sphere-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            pointer-events: none;
-            z-index: -1;
-            perspective: 500px;
-             margin: 10px auto;
-            transform: translateX(15%) translateY(5%)
-        }
-
-        #animated-sphere {
-             width: 200px;
-            height: 200px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotateSphere 10s linear infinite;
-            border-radius: 50%;
-        }
-
-        .sphere-segment {
-            position: absolute;
-             width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #00bcd4 30%, #00a2b8 70%);
-            opacity: 0.8;
-            transform: rotateY(0deg);
-            transform-style: preserve-3d;
-        }
-
-        .sphere-segment:nth-child(1) {
-            transform: rotateX(20deg) rotateZ(45deg) translateZ(50px);
-        }
-
-        .sphere-segment:nth-child(2) {
-            transform: rotateX(40deg) rotateZ(135deg) translateZ(50px);
-        }
-
-        .sphere-segment:nth-child(3) {
-            transform: rotateX(60deg) rotateZ(225deg) translateZ(50px);
-        }
-
-        .sphere-segment:nth-child(4) {
-            transform: rotateX(80deg) rotateZ(315deg) translateZ(50px);
-        }
-
-        .sphere-segment:nth-child(5) {
-            transform: rotateX(100deg) rotateZ(45deg) translateZ(50px);
-        }
-
-        .sphere-segment:nth-child(6) {
-            transform: rotateX(120deg) rotateZ(135deg) translateZ(50px);
-        }
-
-        .sphere-segment:nth-child(7) {
-            transform: rotateX(140deg) rotateZ(225deg) translateZ(50px);
-        }
-
-        .sphere-segment:nth-child(8) {
-            transform: rotateX(160deg) rotateZ(315deg) translateZ(50px);
-        }
-
-        @keyframes rotateSphere {
-            0% {
-                transform: rotateY(0deg);
-            }
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-        #logo-3d-container {
-            position: relative;
-            perspective: 600px;
-             pointer-events: none;
-            z-index: -1;
-            opacity: 0.6;
-             margin: 10px auto;
-             transform: translateY(30%);
-             width: 100px;
-             height: 100px;
-        }
-
-        #logo-3d {
-            width: 100px;
-            height: 100px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: floatLogo 6s ease-in-out infinite, rotateLogo 8s linear infinite;
-
-        }
-
-        .logo-face {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(0, 188, 212, 0.4);
-            border: 1px solid #00bcd4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            color: #fff;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-             backface-visibility: hidden;
-        }
-
-        .logo-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(50px);
-        }
-
-        .logo-face:nth-child(2) {
-            transform: rotateY(90deg) translateZ(50px);
-        }
-
-        .logo-face:nth-child(3) {
-             transform: rotateY(180deg) translateZ(50px);
-         }
-
-        .logo-face:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(50px);
-         }
-
-
-        @keyframes floatLogo {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        @keyframes rotateLogo {
-            0% {
-                transform: rotateY(0deg);
-            }
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-        /* Parallax Background */
-        #animated-sphere-container {
-            transition: transform 0.3s ease;
-        }
-
-        /* Animated service Icons */
-        .project-item:hover h3 {
-            animation: pulseIcon 0.8s ease-in-out;
-            color: #00bcd4;
-        }
-
-        @keyframes pulseIcon {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-         /* Mouse Following Icon */
-        #mouse-icon {
-            position: absolute;
-             width: 40px;
-            height: 40px;
-            border: 2px solid #00bcd4;
-            border-radius: 50%;
-            background-color: rgba(0, 188, 212, 0.2);
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-             backdrop-filter: blur(2px);
-            transform: translate(-50%, -50%);
-        }
-
-        #mouse-icon.visible {
-            opacity: 1;
-        }
-
-
-       /* 3D Rotating Text */
-        #rotating-text-container {
-             position: relative;
-             perspective: 800px;
-            pointer-events: none;
-            z-index: -1;
-            margin: 10px auto;
-            transform: translateX(15%) translateY(15%);
-
-        }
-
-        #rotating-text {
-            width: 200px;
-            height: 100px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotateText 15s linear infinite;
-        }
-
-        .text-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
-            color: #fff;
-            font-weight: bold;
-             backface-visibility: hidden;
-
-        }
-
-        .text-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(50px);
-            background: rgba(0, 188, 212, 0.5);
-        }
-
-        .text-face:nth-child(2) {
-            transform: rotateY(90deg) translateZ(100px);
-            background: rgba(0, 188, 212, 0.5);
-        }
-
-        .text-face:nth-child(3) {
-            transform: rotateY(180deg) translateZ(50px);
-            background: rgba(0, 188, 212, 0.5);
-        }
-
-        .text-face:nth-child(4) {
-            transform: rotateY(270deg) translateZ(100px);
-            background: rgba(0, 188, 212, 0.5);
-        }
-
-        @keyframes rotateText {
-            from {
-                transform: rotateY(0deg);
-            }
-            to {
-                transform: rotateY(360deg);
-            }
-        }
-         /* 3D Spinning Cube */
-         #spinning-cube-container {
-             position: relative;
-            perspective: 800px;
-             pointer-events: none;
-             z-index: -1;
-             opacity: 0.7;
-             margin: 10px auto;
-             transform: translateY(20%);
-        }
-
-        #spinning-cube {
-            width: 100px;
-            height: 100px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: spinCube 12s linear infinite;
-        }
-
-        .cube-face {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(0, 188, 212, 0.6);
-            border: 1px solid #00bcd4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
-            color: #fff;
-            font-weight: bold;
-             backface-visibility: hidden;
-        }
-
-        .cube-face:nth-child(1) {
-            transform: rotateY(0deg) translateZ(50px);
-        }
-
-        .cube-face:nth-child(2) {
-            transform: rotateX(90deg) translateZ(50px);
-        }
-
-        .cube-face:nth-child(3) {
-            transform: rotateY(90deg) translateZ(50px);
-        }
-
-        .cube-face:nth-child(4) {
-            transform: rotateX(-90deg) translateZ(50px);
-        }
-
-        .cube-face:nth-child(5) {
-            transform: rotateY(180deg) translateZ(50px);
-        }
-
-        .cube-face:nth-child(6) {
-            transform: rotateY(-90deg) translateZ(50px);
-        }
-
-        @keyframes spinCube {
-            from {
-                transform: rotateX(0deg) rotateY(0deg);
-            }
-            to {
-                transform: rotateX(360deg) rotateY(360deg);
-            }
-        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
     <div class="container">
-        <h1>Game Testerz - Past Projects</h1>
+        <h1>Game Testerz</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#services">Services</a>
+            <a href="index.html#testimonials">Testimonials</a>
+            <a href="index.html#contact">Contact</a>
+             <a href="#">Past Projects</a>
+        </nav>
     </div>
 </header>
- <div style="position: relative;">
-        <div id="logo-3d-container">
-             <div id="logo-3d">
-                <div class="logo-face">G</div>
-                 <div class="logo-face">T</div>
-                 <div class="logo-face">G</div>
-                <div class="logo-face">T</div>
-            </div>
-        </div>
-         <div id="animated-sphere-container">
-            <div id="animated-sphere">
-                <div class="sphere-segment"></div>
-                <div class="sphere-segment"></div>
-                <div class="sphere-segment"></div>
-                <div class="sphere-segment"></div>
-                <div class="sphere-segment"></div>
-                <div class="sphere-segment"></div>
-                <div class="sphere-segment"></div>
-                <div class="sphere-segment"></div>
-            </div>
-         </div>
-           <div id="rotating-text-container">
-              <div id="rotating-text">
-                  <div class="text-face">Game</div>
-                 <div class="text-face">Testerz</div>
-                <div class="text-face">Game</div>
-                  <div class="text-face">Testerz</div>
-             </div>
-         </div>
-         <div id="spinning-cube-container">
-            <div id="spinning-cube">
-                 <div class="cube-face">Test</div>
-                 <div class="cube-face">Your</div>
-                <div class="cube-face">Game</div>
-                 <div class="cube-face">With</div>
-                <div class="cube-face">Game</div>
-                <div class="cube-face">Testerz</div>
-             </div>
-         </div>
-</div>
-    <div id="mouse-icon"></div>
+
 <section class="projects-section">
     <div class="container">
-        <h2>Our Past Projects</h2>
-         <div class="project-grid">
-             <div class="project-item">
-                <h3>Project 1: Awesome Game</h3>
-                <p>This project involved testing the functional aspects of a complex RPG.</p>
+        <h2>Past Projects</h2>
+        <div class="project-grid">
+           <div class="project-item">
+               <h3>Project 1</h3>
+               <p>This is the first project that we worked on. It was a great experience.</p>
             </div>
-            <div class="project-item">
-                <h3>Project 2: Cool Platformer</h3>
-                <p>Involved rigorous testing of controls and level design.</p>
+           <div class="project-item">
+               <h3>Project 2</h3>
+               <p>This is the second project that we worked on. It was a great learning experience.</p>
             </div>
-             <div class="project-item">
-                <h3>Project 3: Puzzle Game</h3>
-                <p>Tested for logic and progression issues.</p>
+           <div class="project-item">
+               <h3>Project 3</h3>
+               <p>This is the third project that we worked on. We learned a lot from it.</p>
             </div>
-             <div class="project-item">
-                <h3>Project 4: Simulation</h3>
-                <p>Tested user interface and user experience.</p>
+           <div class="project-item">
+               <h3>Project 4</h3>
+               <p>This is the forth project that we worked on. It was a great experience for the whole team.</p>
             </div>
-              <div class="project-item">
-                <h3>Project 5: Strategy</h3>
-                 <p>Tested balance and Ai in strategic gameplay.</p>
+           <div class="project-item">
+               <h3>Project 5</h3>
+               <p>This is the fifth project that we worked on. It was amazing to see how much we grew.</p>
             </div>
-             <div class="project-item">
-                 <h3>Project 6: Horror</h3>
-                 <p>Tested for atmosphere and immersion breaking bugs.</p>
+           <div class="project-item">
+               <h3>Project 6</h3>
+               <p>This is the sixth project that we worked on. This project showed the teams creativity.</p>
             </div>
         </div>
     </div>
 </section>
-
 
 <footer>
     <div class="container">
@@ -497,30 +195,5 @@
     </div>
 </footer>
 
-<script>
-
-  // Parallax Effect
-    window.addEventListener('scroll', function () {
-        const scrollPosition = window.scrollY;
-        const sphereContainer = document.getElementById("animated-sphere-container");
-        sphereContainer.style.transform = `translate(15%, 5%) translateY(${scrollPosition * 0.1}px)`;
-    });
-
-    // Mouse following Icon
-    const mouseIcon = document.getElementById('mouse-icon');
-
-    document.addEventListener('mousemove', (e) => {
-        mouseIcon.style.left = (e.clientX) + 'px';
-        mouseIcon.style.top = (e.clientY) + 'px';
-
-        if (!mouseIcon.classList.contains('visible')) {
-            mouseIcon.classList.add('visible');
-        }
-    });
-
-    document.addEventListener('mouseleave', () => {
-        mouseIcon.classList.remove('visible');
-    });
-</script>
 </body>
 </html>
