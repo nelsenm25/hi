@@ -14,6 +14,7 @@
             color: #e0e0e0;
             overflow-x: hidden;
             overflow-y: auto; /* Enable vertical scrolling */
+            line-height: 1.6; /* Improved default line height for readability */
         }
 
         header {
@@ -33,15 +34,17 @@
 
         nav {
             margin-top: 20px;
+             display: flex; /* added */
+             justify-content: center; /* added */
         }
 
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 25px;
-            font-size: 1.2em;
-            transition: color 0.3s ease;
-        }
+         nav a {
+             color: #fff;
+             text-decoration: none;
+             margin: 0 25px;
+             font-size: 1.2em;
+             transition: color 0.3s ease;
+         }
 
         nav a:hover {
             color: #00bcd4;
@@ -58,6 +61,11 @@
             padding: 100px 0;
             position: relative;
             overflow: hidden;
+            display: flex; /* Added */
+            flex-direction: column; /* Added */
+            align-items: center; /* Added */
+            justify-content: center; /* Added */
+            min-height: 60vh; /* Added */
         }
 
         .hero-section h2 {
@@ -65,12 +73,16 @@
             margin-bottom: 25px;
             text-shadow: 2px 2px 4px #000;
             color: #fff;
+            max-width: 80%; /* Added */
+            text-align: center;
         }
 
         .hero-section p {
             font-size: 1.2em;
             margin-bottom: 35px;
             line-height: 1.7;
+             max-width: 70%; /* Added */
+            text-align: center;
         }
 
         .btn {
@@ -174,14 +186,43 @@
         }
 
         .contact-section {
-            padding: 80px 0;
+             padding: 80px 0;
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             justify-content: center;
+             min-height: 40vh; /* Added */
         }
 
         .contact-section h2 {
             font-size: 2.8em;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             text-shadow: 2px 2px 4px #000;
             color: #fff;
+        }
+
+        .contact-section p { /* Added style for paragraph in contact */
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #ddd;
+             max-width: 70%; /* Added */
+            text-align: center; /* Added */
+        }
+
+         .contact-section a {
+           display: inline-block;
+           background-color: #00bcd4;
+           color: #fff;
+           padding: 16px 32px;
+           text-decoration: none;
+           border-radius: 5px;
+           transition: background-color 0.3s ease;
+           font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .contact-section a:hover {
+           background-color: #00a2b8;
         }
 
 
@@ -371,7 +412,7 @@
             perspective: 800px;
             pointer-events: none;
             z-index: -1;
-            
+
         }
 
         #rotating-text {
@@ -393,7 +434,7 @@
             color: #fff;
             font-weight: bold;
             backface-visibility: hidden;
-            
+
         }
 
         .text-face:nth-child(1) {
@@ -490,7 +531,7 @@
                 transform: rotateX(360deg) rotateY(360deg);
             }
         }
-       
+
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -620,7 +661,11 @@
 <section class="contact-section" id="contact">
     <div class="container">
         <h2>Let's Work Together</h2>
-         </div>
+        <p>Ready to take your game to the next level? Contact us today!</p>
+        <p>You can email us at: <a href="mailto:mavn59899@gmail.com">mavn59899@gmail.com</a></p>
+        <!-- Here's the link to send the email -->
+        <!--  <a href="mailto:mavn59899@gmail.com" class="btn">Send us an Email</a> -->
+    </div>
 </section>
 
 <footer>
