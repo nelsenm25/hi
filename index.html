@@ -408,24 +408,7 @@
             }
         }
 
-        /* Mouse Following Icon */
-        #mouse-icon {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border: 2px solid #00bcd4;
-            border-radius: 50%;
-            background-color: rgba(0, 188, 212, 0.2);
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            backdrop-filter: blur(2px);
-        }
 
-        #mouse-icon.visible {
-            opacity: 1;
-        }
 
         /* 3D Rotating Text */
         #rotating-text-container {
@@ -597,7 +580,6 @@
     </div>
 </div>
 
-<div id="mouse-icon"></div>
 
 <div id="rotating-text-container">
     <div id="rotating-text">
@@ -697,7 +679,6 @@
         </form>
     </div>
 </section>
-<p id="email-address" style="display: none;">mavn59899@gmail.com</p>
 
 <footer>
     <div class="container">
@@ -705,17 +686,19 @@
     </div>
 </footer>
 <script>
-
-   document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const contactForm = document.getElementById('contactForm');
 
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault();
-           const emailAddressElement = document.getElementById('email-address');
-           const emailAddress = emailAddressElement.textContent;
 
+              // Just log the data to console since we're not using emailjs
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
 
-        window.location.href = `mailto:${emailAddress}`;
+              console.log("Form Data:", {name, email, message});
+
         });
     });
 
@@ -724,22 +707,6 @@
         const scrollPosition = window.scrollY;
         const sphereContainer = document.getElementById("animated-sphere-container");
         sphereContainer.style.transform = `translate(-50%, -50%) translateY(${scrollPosition * 0.1}px)`;
-    });
-
-    // Mouse following Icon
-    const mouseIcon = document.getElementById('mouse-icon');
-
-    document.addEventListener('mousemove', (e) => {
-        mouseIcon.style.left = (e.clientX - 25) + 'px';
-        mouseIcon.style.top = (e.clientY - 25) + 'px';
-
-        if (!mouseIcon.classList.contains('visible')) {
-            mouseIcon.classList.add('visible');
-        }
-    });
-
-    document.addEventListener('mouseleave', () => {
-        mouseIcon.classList.remove('visible');
     });
 
 </script>
