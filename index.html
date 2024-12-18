@@ -16,13 +16,14 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #0d1117; /* Dark background */
+             background: #0d1117; /* Dark background */
             color: #f0f0f0; /* Light text */
             line-height: 1.7;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            position: relative;
         }
 
         .container {
@@ -30,6 +31,8 @@
             margin: 0 auto;
             padding: 0 20px;
             box-sizing: border-box;
+            position: relative; /* Ensure content overlays canvas */
+            z-index: 1;  /* Ensure content overlays canvas */
         }
 
         /* Header Styles */
@@ -39,6 +42,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 100;
+             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 
         }
 
@@ -85,6 +89,7 @@
             text-align: center;
             flex: 1;
             position: relative;
+
         }
 
         .hero-section h2 {
@@ -125,6 +130,7 @@
         /* Services Section */
         .services-section {
             padding: 80px 0;
+             position: relative;
         }
 
         .services-section h2 {
@@ -180,6 +186,7 @@
         .testimonials-section {
             background-color: #1a2432;
             padding: 80px 0;
+             position: relative;
         }
 
         .testimonials-section h2 {
@@ -228,6 +235,7 @@
             justify-content: center;
             text-align: center;
             flex: 1;
+             position: relative;
         }
 
 
@@ -272,34 +280,24 @@
             text-align: center;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
             margin-top: auto;
+             position: relative;
         }
 
         footer p {
             color: #ddd;
         }
 
-        /* Spline 3D Model */
-        #spline-container {
-            position: absolute;
-            top: 20%; /* Position the container */
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40%; /* Responsive width */
-            height: 40%;
-            min-width: 300px;
-            min-height: 300px;
-            max-width: 800px;
-            max-height: 800px;
-             pointer-events: none; /* Allow clicks to pass through the iframe */
-              z-index: -1; /* keep behind */
-        }
-
-        #spline-container iframe {
+       /* Canvas Styles */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-        }
+            z-index: 0; /* keep it in the back */
+         }
 
-        /* Animated service Icons */
+           /* Animated service Icons */
         .service-item:hover h3 {
             animation: pulseIcon 0.8s ease-in-out;
             color: #5eead4;
@@ -321,109 +319,154 @@
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <h1>Game Testerz</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#testimonials">Testimonials</a>
-            <a href="#contact">Contact</a>
-            <a href="Projects.html">Past Projects</a>
-        </nav>
-    </div>
-</header>
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <div class="container">
+            <h1>Game Testerz</h1>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+                <a href="Projects.html">Past Projects</a>
+            </nav>
+        </div>
+    </header>
 
 
-<div id="spline-container">
-    <iframe src='https://my.spline.design/realisticvideogamecontrollercopy-57ab69b65b6334b74f9274bf4feb9c9f/' frameborder='0' width='100%' height='100%'></iframe>
-</div>
+    <section class="hero-section" id="home">
+        <div class="container">
+            <h2>Uncover the Flaws, Elevate Your Game</h2>
+            <p>At Game Testerz, we're dedicated to finding and reporting bugs, glitches, and design flaws in your video
+                game, ensuring a smooth and enjoyable experience for all players.</p>
+            <a href="#contact" class="btn">Contact Us Today</a>
+        </div>
+    </section>
 
-<section class="hero-section" id="home">
-    <div class="container">
-        <h2>Uncover the Flaws, Elevate Your Game</h2>
-        <p>At Game Testerz, we're dedicated to finding and reporting bugs, glitches, and design flaws in your video
-            game, ensuring a smooth and enjoyable experience for all players.</p>
-        <a href="#contact" class="btn">Contact Us Today</a>
-    </div>
-</section>
-
-<section class="services-section" id="services">
-    <div class="container">
-        <h2>Our Game Testing Services</h2>
-        <div class="service-grid">
-            <div class="service-item">
-                <h3>Functional Bug Testing</h3>
-                <p>Ensure all game mechanics function as designed and as intended to eliminate game breaking bugs.</p>
-            </div>
-            <div class="service-item">
-                <h3>Performance Optimization</h3>
-                <p>We look at frame rates and system load so that there are no performance issues.</p>
-            </div>
-            <div class="service-item">
-                <h3>Usability and UX Testing</h3>
-                <p>Making the game more user friendly and intuitive so that user satisfaction is maximized.</p>
-            </div>
-            <div class="service-item">
-                <h3>Multi-platform Compatibility</h3>
-                <p>We test on various devices to ensure the game runs smoothly no matter the machine.</p>
-            </div>
-            <div class="service-item">
-                <h3>Regression Testing</h3>
-                <p>We make sure that previous fixes are still in place to make sure new builds dont have old bugs.</p>
-            </div>
-            <div class="service-item">
-                <h3>Localization Testing</h3>
-                <p>We make sure the translation is up to par and any cultural differences are accounted for.</p>
+    <section class="services-section" id="services">
+        <div class="container">
+            <h2>Our Game Testing Services</h2>
+            <div class="service-grid">
+                <div class="service-item">
+                    <h3>Functional Bug Testing</h3>
+                    <p>Ensure all game mechanics function as designed and as intended to eliminate game breaking bugs.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Performance Optimization</h3>
+                    <p>We look at frame rates and system load so that there are no performance issues.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Usability and UX Testing</h3>
+                    <p>Making the game more user friendly and intuitive so that user satisfaction is maximized.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Multi-platform Compatibility</h3>
+                    <p>We test on various devices to ensure the game runs smoothly no matter the machine.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Regression Testing</h3>
+                    <p>We make sure that previous fixes are still in place to make sure new builds dont have old bugs.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Localization Testing</h3>
+                    <p>We make sure the translation is up to par and any cultural differences are accounted for.</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="testimonials-section" id="testimonials">
-    <div class="container">
-        <h2>Trusted by Game Developers</h2>
-        <div class="testimonial-slider">
-            <div class="testimonial-card">
-                <p>"Game Testerz has been invaluable in uncovering critical issues with our game prior to release,
-                    saving us time and resources!"</p>
-                <div class="author">- Sarah J., Indie Studio Owner</div>
-            </div>
-            <div class="testimonial-card">
-                <p>"The level of detail in their reports is truly impressive. Their insights helped us significantly
-                    improve the overall quality of our project."</p>
-                <div class="author">- Mark S., Lead Programmer</div>
-            </div>
-            <div class="testimonial-card">
-                <p>"Their expertise in usability testing provided us with actionable feedback that made a big difference
-                    to the player experience."</p>
-                <div class="author">- Alex L., Game Designer</div>
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <h2>Trusted by Game Developers</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <p>"Game Testerz has been invaluable in uncovering critical issues with our game prior to release,
+                        saving us time and resources!"</p>
+                    <div class="author">- Sarah J., Indie Studio Owner</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The level of detail in their reports is truly impressive. Their insights helped us significantly
+                        improve the overall quality of our project."</p>
+                    <div class="author">- Mark S., Lead Programmer</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Their expertise in usability testing provided us with actionable feedback that made a big difference
+                        to the player experience."</p>
+                    <div class="author">- Alex L., Game Designer</div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="contact-section" id="contact">
-    <div class="container">
-        <h2>Let's Work Together</h2>
-        <p>Ready to take your game to the next level? Contact us today!</p>
-        <p>You can email us at: <a href="mailto:mavn59899@gmail.com">mavn59899@gmail.com</a></p>
-    </div>
-</section>
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Let's Work Together</h2>
+            <p>Ready to take your game to the next level? Contact us today!</p>
+            <p>You can email us at: <a href="mailto:mavn59899@gmail.com">mavn59899@gmail.com</a></p>
+        </div>
+    </section>
 
-<footer>
-    <div class="container">
-        <p>© 2024 Game Testerz. All rights reserved.</p>
-    </div>
-</footer>
+    <footer>
+        <div class="container">
+            <p>© 2024 Game Testerz. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
-     // Parallax Effect
-    window.addEventListener('scroll', function () {
-        const scrollPosition = window.scrollY;
-        const splineContainer = document.getElementById("spline-container");
-        splineContainer.style.transform = `translate(-50%, -50%) translateY(${scrollPosition * 0.02}px)`;
+  const canvas = document.getElementById('bg-canvas');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0);
+
+// Create a light
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+directionalLight.position.set(5, 5, 5);
+scene.add(directionalLight);
+
+let cube;
+const loader = new THREE.TextureLoader();
+
+loader.load('https://i.imgur.com/8w8m5f8.jpg', function(texture) {
+
+    const geometry = new THREE.BoxGeometry(3, 3, 3);
+        const material = new THREE.MeshPhongMaterial({
+        map: texture
     });
+    cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.z = 7;
+
+
+     function animate() {
+        requestAnimationFrame(animate);
+
+        if (cube) {
+        cube.rotation.x += 0.005;
+        cube.rotation.y += 0.005;
+        cube.rotation.z += 0.005;
+        }
+
+
+        renderer.render(scene, camera);
+    }
+    animate();
+});
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
 </script>
 
 </body>
