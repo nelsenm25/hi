@@ -13,8 +13,11 @@
             background-color: #0f0f0f;
             color: #e0e0e0;
             overflow-x: hidden;
-            overflow-y: auto; /* Enable vertical scrolling */
-            line-height: 1.6; /* Improved default line height for readability */
+            overflow-y: auto;
+            line-height: 1.6;
+            display: flex; /* Added to center content vertically */
+            flex-direction: column; /* Added to ensure content flows correctly */
+            min-height: 100vh; /* Ensure full viewport height */
         }
 
         header {
@@ -22,6 +25,12 @@
             padding: 25px 0;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between; /* Distribute space between title and nav */
+            align-items: center; /* Vertically align items */
         }
 
         header h1 {
@@ -33,18 +42,17 @@
         }
 
         nav {
-            margin-top: 20px;
-             display: flex; /* added */
-             justify-content: center; /* added */
+            display: flex; /* Ensure nav items are in a row */
         }
 
-         nav a {
-             color: #fff;
-             text-decoration: none;
-             margin: 0 25px;
-             font-size: 1.2em;
-             transition: color 0.3s ease;
-         }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px; /* Reduced margin for better spacing */
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
 
         nav a:hover {
             color: #00bcd4;
@@ -53,19 +61,18 @@
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
-            text-align: center;
+            padding: 0 20px; /* Add horizontal padding */
+            box-sizing: border-box; /* Include padding in the width calculation */
         }
 
         .hero-section {
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-            display: flex; /* Added */
-            flex-direction: column; /* Added */
-            align-items: center; /* Added */
-            justify-content: center; /* Added */
-            min-height: 60vh; /* Added */
+            padding: 80px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex: 1;
         }
 
         .hero-section h2 {
@@ -73,16 +80,14 @@
             margin-bottom: 25px;
             text-shadow: 2px 2px 4px #000;
             color: #fff;
-            max-width: 80%; /* Added */
-            text-align: center;
+             max-width: 90%; /* added */
         }
 
         .hero-section p {
-            font-size: 1.2em;
-            margin-bottom: 35px;
-            line-height: 1.7;
-             max-width: 70%; /* Added */
-            text-align: center;
+             font-size: 1.2em;
+             margin-bottom: 35px;
+             line-height: 1.7;
+             max-width: 80%; /* added */
         }
 
         .btn {
@@ -185,29 +190,30 @@
             color: #fff;
         }
 
-        .contact-section {
+       .contact-section {
              padding: 80px 0;
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             justify-content: center;
-             min-height: 40vh; /* Added */
-        }
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+             flex: 1;
+         }
 
         .contact-section h2 {
-            font-size: 2.8em;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px #000;
-            color: #fff;
-        }
+             font-size: 2.8em;
+             margin-bottom: 30px;
+             text-shadow: 2px 2px 4px #000;
+             color: #fff;
+             max-width: 90%;
+         }
 
-        .contact-section p { /* Added style for paragraph in contact */
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            color: #ddd;
-             max-width: 70%; /* Added */
-            text-align: center; /* Added */
-        }
+         .contact-section p {
+             font-size: 1.2em;
+             margin-bottom: 20px;
+             color: #ddd;
+             max-width: 80%;
+         }
 
          .contact-section a {
            display: inline-block;
@@ -225,13 +231,14 @@
            background-color: #00a2b8;
         }
 
-
         footer {
             background-color: #2c3e50;
             padding: 25px 0;
             text-align: center;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            margin-top: auto; /* Push footer to bottom */
         }
+
 
         footer p {
             color: #ddd;
@@ -531,8 +538,6 @@
                 transform: rotateX(360deg) rotateY(360deg);
             }
         }
-
-
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -546,7 +551,7 @@
             <a href="#services">Services</a>
             <a href="#testimonials">Testimonials</a>
             <a href="#contact">Contact</a>
-             <a href="Projects.html">Past Projects</a>
+            <a href="Projects.html">Past Projects</a>
         </nav>
     </div>
 </header>
@@ -663,8 +668,6 @@
         <h2>Let's Work Together</h2>
         <p>Ready to take your game to the next level? Contact us today!</p>
         <p>You can email us at: <a href="mailto:mavn59899@gmail.com">mavn59899@gmail.com</a></p>
-        <!-- Here's the link to send the email -->
-        <!--  <a href="mailto:mavn59899@gmail.com" class="btn">Send us an Email</a> -->
     </div>
 </section>
 
