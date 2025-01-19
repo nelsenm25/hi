@@ -1,221 +1,365 @@
-import { world, system, ItemStack, Player } from "@minecraft/server";
+import {
+    world,
+    system,
+    BlockPermutation
+} from "@minecraft/server";
 
-// List of items that cannot be renamed
-const RESTRICTED_ITEMS = [
-    "minecraft:chicken_spawn_egg",
-    "minecraft:netherite_pickaxe",
-    "minecraft:netherite_sword",
-    "minecraft:diamond_pickaxe"
-];
+// Selection tool configuration
+const SELECTION_TOOL = "minecraft:golden_axe";
+const COMMAND_PREFIX = "!";
+const PLOTS_DATA_KEY = "plots_data_v5"; // Changed to force reset
 
-// List of all anvil variants
-const ANVIL_TYPES = [
-    "minecraft:anvil",
-    "minecraft:chipped_anvil",
-    "minecraft:damaged_anvil"
-];
+// Player selection state storage
+const playerSelections = new Map();
 
-// Debug mode flag for logging
-const DEBUG_MODE = true;
+class PlotData {
+    constructor(boundary, owner = "") {
+        this.boundary = boundary;
+        this.owner = owner;
+        this.created = Date.now();
+    }
 
-// Track player inventory states
-const playerInventoryStates = new Map();
+    toJSON() {
+        return {
+            boundary: this.boundary.toString(),
+            owner: this.owner,
+            created: this.created
+        };
+    }
 
-/**
- * Log debug messages to console if debug mode is enabled
- * @param {string} message - Message to log
- */
-function debugLog(message) {
-    if (DEBUG_MODE) {
-        console.warn(`[AnvilRestrictions] ${message}`);
+    static fromJSON(data) {
+        const plot = new PlotData(
+            PlotBoundary.fromString(data.boundary),
+            data.owner
+        );
+        plot.created = data.created;
+        return plot;
     }
 }
 
-/**
- * Send notification message to player
- * @param {Player} player - Player to send message to
- * @param {string} message - Message to send
- */
-function notifyPlayer(player, message) {
-    player.sendMessage(`§c${message}`);
-}
-
-/**
- * Validate block is an anvil
- * @param {Block} block - The block to check
- * @returns {boolean} True if block is an anvil
- */
-function isAnvil(block) {
-    if (!block?.typeId) {
-        debugLog("Invalid block or missing typeId");
-        return false;
+class Location {
+    constructor(x = 0, y = 0, z = 0) {
+        this.x = Math.floor(Number(x) || 0);
+        this.y = Math.floor(Number(y) || 0);
+        this.z = Math.floor(Number(z) || 0);
     }
 
-    debugLog(`Block type: ${block.typeId}`);
-    return ANVIL_TYPES.includes(block.typeId);
-}
-
-/**
- * Get inventory state for a player
- * @param {Player} player - The player to check
- * @returns {Map<number, string>} Map of slot numbers to item IDs
- */
-function getInventoryState(player) {
-    const state = new Map();
-    const inventory = player.getComponent("inventory");
-    if (!inventory) return state;
-
-    for (let i = 0; i < inventory.container.size; i++) {
-        const item = inventory.container.getItem(i);
-        if (item && RESTRICTED_ITEMS.includes(item.typeId)) {
-            state.set(i, item.typeId);
+    static fromLocation(location) {
+        if (!location) return new Location(0, 0, 0);
+        if (location instanceof Vector3) {
+            return new Location(location.x, location.y, location.z);
         }
+        return new Location(
+            Number(location.x) || 0,
+            Number(location.y) || 0,
+            Number(location.z) || 0
+        );
     }
-    return state;
+
+    toString() {
+        return `${this.x},${this.y},${this.z}`;
+    }
+
+    static fromString(str) {
+        if (!str) return new Location(0, 0, 0);
+        const [x, y, z] = str.split(',').map(n => parseInt(n) || 0);
+        return new Location(x, y, z);
+    }
+
+    equals(other) {
+        return this.x === other.x &&
+            this.y === other.y &&
+            this.z === other.z;
+    }
+
+    toVector() {
+        return new Vector(this.x, this.y, this.z);
+    }
 }
 
-// Set up interval to check for inventory changes near anvils
-system.runInterval(() => {
-    for (const player of world.getAllPlayers()) {
+class PlotBoundary {
+    constructor(corner1, corner2) {
+        const loc1 = Location.fromLocation(corner1);
+        const loc2 = Location.fromLocation(corner2);
+
+        this.min = new Location(
+            Math.min(loc1.x, loc2.x),
+            Math.min(loc1.y, loc2.y),
+            Math.min(loc1.z, loc2.z)
+        );
+
+        this.max = new Location(
+            Math.max(loc1.x, loc2.x),
+            Math.max(loc1.y, loc2.y),
+            Math.max(loc1.z, loc2.z)
+        );
+    }
+
+    containsPoint(point) {
+        const loc = Location.fromLocation(point);
+        const result = loc.x >= this.min.x && loc.x <= this.max.x &&
+            loc.y >= this.min.y && loc.y <= this.max.y &&
+            loc.z >= this.min.z && loc.z <= this.max.z;
+
+        if (!result) {
+            console.warn(`[Plot System] Point check: ${loc.toString()} against boundary: ${this.toString()}`);
+        }
+        return result;
+    }
+
+    getVolume() {
+        return (this.max.x - this.min.x + 1) *
+            (this.max.y - this.min.y + 1) *
+            (this.max.z - this.min.z + 1);
+    }
+
+    toString() {
+        return `${this.min.toString()}|${this.max.toString()}`;
+    }
+
+    static fromString(str) {
+        if (!str) return new PlotBoundary(new Location(), new Location());
+        const [min, max] = str.split('|').map(Location.fromString);
+        return new PlotBoundary(min, max);
+    }
+
+    overlaps(other) {
+        return !(this.max.x < other.min.x || this.min.x > other.max.x ||
+            this.max.y < other.min.y || this.min.y > other.max.y ||
+            this.max.z < other.min.z || this.min.z > other.max.z);
+    }
+}
+
+class PlotSystem {
+    constructor() {
+        this.plots = [];
+        this.loadPlots();
+        this.setupEvents();
+    }
+
+    loadPlots() {
         try {
-            // Get the block the player is looking at
-            const block = player.getBlockFromViewDirection();
-            if (!block?.block || !isAnvil(block.block)) {
-                // Clear tracked state if not looking at anvil
-                playerInventoryStates.delete(player.id);
-                continue;
-            }
-
-            // Get current inventory state
-            const currentState = getInventoryState(player);
-            const previousState = playerInventoryStates.get(player.id);
-
-            // If no previous state, store current state and continue
-            if (!previousState) {
-                playerInventoryStates.set(player.id, currentState);
-                continue;
-            }
-
-            // Check for moved items
-            let itemMoved = false;
-            previousState.forEach((itemId, slot) => {
-                if (!currentState.has(slot) || currentState.get(slot) !== itemId) {
-                    itemMoved = true;
-                }
-            });
-
-            if (itemMoved) {
-                notifyPlayer(player, "Restricted items cannot be moved while anvil UI is open!");
-                debugLog(`Player ${player.name} moved a restricted item in anvil UI`);
-
-                // Force close the anvil UI
-                try {
-                    player.runCommand("closescreen");
-                } catch (cmdError) {
-                    debugLog(`Error closing screen: ${cmdError}`);
+            const savedData = world.getDynamicProperty(PLOTS_DATA_KEY);
+            if (savedData) {
+                const plotsData = JSON.parse(savedData);
+                if (Array.isArray(plotsData)) {
+                    this.plots = plotsData.map(plotData => PlotData.fromJSON(plotData));
+                    console.warn(`[Plot System] Loaded ${this.plots.length} plots`);
+                    this.plots.forEach((plot, i) => {
+                        console.warn(`[Plot System] Plot ${i}: ${plot.boundary.toString()}`);
+                    });
                 }
             }
-
-            // Update stored state
-            playerInventoryStates.set(player.id, currentState);
         } catch (error) {
-            debugLog(`Error in interval check for player ${player.name}: ${error}`);
+            console.error("[Plot System] Failed to load plots:", error);
+            this.plots = [];
         }
     }
-}, 10); // Check every 10 ticks (0.5 seconds)
 
-// Subscribe to block interaction event
-world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
-    try {
-        const { player, block, itemStack } = event;
-
-        debugLog(`Player ${player?.name} interacting with block ${block?.typeId}`);
-
-        // Validate player and block
-        if (!player || !block) {
-            debugLog("Invalid player or block in event");
-            return;
+    savePlots() {
+        try {
+            const plotsData = this.plots.map(plot => plot.toJSON());
+            const dataString = JSON.stringify(plotsData);
+            world.setDynamicProperty(PLOTS_DATA_KEY, dataString);
+            console.warn(`[Plot System] Saved ${this.plots.length} plots`);
+            console.warn(`[Plot System] Data: ${dataString}`);
+        } catch (error) {
+            console.error("[Plot System] Failed to save plots:", error);
         }
-
-        // Check if block is anvil
-        if (!isAnvil(block)) {
-            return;
-        }
-
-        // Check if player has an item in hand using itemStack from event
-        if (!itemStack) {
-            event.cancel = true;
-            notifyPlayer(player, "You must be holding an item to use the anvil!");
-            debugLog(`Player ${player.name} attempted to use anvil with empty hand`);
-            return;
-        }
-
-        // Check if item is restricted
-        if (RESTRICTED_ITEMS.includes(itemStack.typeId)) {
-            // Cancel the anvil interaction
-            event.cancel = true;
-            notifyPlayer(player, "This item cannot be renamed!");
-            debugLog(`Player ${player.name} attempted to rename restricted item: ${itemStack.typeId}`);
-        }
-    } catch (error) {
-        debugLog(`Error in event handler: ${error}`);
     }
-});
 
-// Monitor item use to detect when items are moved in the anvil UI
-world.beforeEvents.itemUse.subscribe((event) => {
-    try {
-        const { source: player, itemStack } = event;
+    getPlotAt(location) {
+        const loc = Location.fromLocation(location);
+        console.warn(`[Plot System] Checking location: ${loc.toString()}`);
 
-        if (!player || !itemStack) return;
-
-        // Get the block the player is looking at
-        const block = player.getBlockFromViewDirection();
-        if (!block?.block || !isAnvil(block.block)) return;
-
-        // If they're using a restricted item near an anvil
-        if (RESTRICTED_ITEMS.includes(itemStack.typeId)) {
-            event.cancel = true;
-            notifyPlayer(player, "This item cannot be renamed!");
-            debugLog(`Player ${player.name} attempted to use restricted item in anvil: ${itemStack.typeId}`);
-
-            // Force close the anvil UI
-            try {
-                player.runCommand("closescreen");
-            } catch (cmdError) {
-                debugLog(`Error closing screen: ${cmdError}`);
+        for (const plot of this.plots) {
+            console.warn(`[Plot System] Testing against plot: ${plot.boundary.toString()}`);
+            if (plot.boundary.containsPoint(loc)) {
+                console.warn(`[Plot System] Found matching plot!`);
+                return plot;
             }
         }
-    } catch (error) {
-        debugLog(`Error in itemUse handler: ${error}`);
+
+        console.warn(`[Plot System] No plot found at location`);
+        return null;
     }
-});
 
-// Monitor item use on anvil blocks
-world.beforeEvents.itemUseOn.subscribe((event) => {
-    try {
-        const { source: player, itemStack } = event;
+    createPlot(boundary) {
+        console.warn(`[Plot System] Creating plot: ${boundary.toString()}`);
 
-        if (!player || !itemStack) return;
-
-        // Get the block they're using the item on
-        const block = player.dimension.getBlock(event.blockLocation);
-        if (!block || !isAnvil(block)) return;
-
-        // Check if the item is restricted
-        if (RESTRICTED_ITEMS.includes(itemStack.typeId)) {
-            event.cancel = true;
-            notifyPlayer(player, "This item cannot be renamed!");
-            debugLog(`Player ${player.name} attempted to place restricted item in anvil: ${itemStack.typeId}`);
+        for (const plot of this.plots) {
+            if (plot.boundary.overlaps(boundary)) {
+                console.warn(`[Plot System] Overlap detected with: ${plot.boundary.toString()}`);
+                return null;
+            }
         }
-    } catch (error) {
-        debugLog(`Error in itemUseOn handler: ${error}`);
-    }
-});
 
-// System run call to confirm script is loaded
-system.run(() => {
-    debugLog("Anvil Restrictions Script Loaded Successfully");
-    debugLog(`Monitoring ${RESTRICTED_ITEMS.length} restricted items`);
-    debugLog("Anvil types monitored: " + ANVIL_TYPES.join(", "));
-});
+        const plot = new PlotData(boundary);
+        this.plots.push(plot);
+
+        // Save immediately
+        system.run(() => {
+            this.savePlots();
+            console.warn(`[Plot System] Plot created and saved. Total plots: ${this.plots.length}`);
+        });
+
+        return plot;
+    }
+
+    setupEvents() {
+        world.beforeEvents.itemUse.subscribe(event => {
+            const player = event.source;
+            if (!player) return;
+
+            const item = event.itemStack;
+            if (!item || item.typeId !== SELECTION_TOOL) return;
+
+            event.cancel = true;
+
+            const pos = Location.fromLocation(player.location);
+            console.warn(`[Plot System] Player ${player.name} using golden axe at ${pos.toString()}`);
+
+            if (!playerSelections.has(player.name)) {
+                playerSelections.set(player.name, pos);
+                console.warn(`[Plot System] Set first corner for ${player.name}`);
+                player.sendMessage("§a[Plot System] First corner selected!");
+            } else {
+                const firstCorner = playerSelections.get(player.name);
+                const boundary = new PlotBoundary(firstCorner, pos);
+
+                console.warn(`[Plot System] Creating plot for ${player.name}: ${boundary.toString()}`);
+
+                if (boundary.getVolume() > 32768) {
+                    player.sendMessage("§c[Plot System] Plot is too large!");
+                } else {
+                    const plot = this.createPlot(boundary);
+                    if (plot) {
+                        player.sendMessage("§a[Plot System] Plot created successfully!");
+                        // Verify plot was created correctly
+                        const verifyPlot = this.getPlotAt(pos);
+                        if (verifyPlot) {
+                            console.warn(`[Plot System] Plot verified at location`);
+                        } else {
+                            console.warn(`[Plot System] Failed to verify plot!`);
+                        }
+                    } else {
+                        player.sendMessage("§c[Plot System] Plot overlaps with existing plot!");
+                    }
+                }
+                playerSelections.delete(player.name);
+            }
+        });
+
+        world.beforeEvents.playerBreakBlock.subscribe(event => {
+            const plot = this.getPlotAt(event.block.location);
+            if (plot && plot.owner !== event.player.name) {
+                event.cancel = true;
+                event.player.sendMessage("§c[Plot System] You don't have permission to modify this plot!");
+            }
+        });
+
+        world.beforeEvents.playerPlaceBlock.subscribe(event => {
+            const plot = this.getPlotAt(event.block.location);
+            if (plot && plot.owner !== event.player.name) {
+                event.cancel = true;
+                event.player.sendMessage("§c[Plot System] You don't have permission to modify this plot!");
+            }
+        });
+
+        world.beforeEvents.chatSend.subscribe(event => {
+            if (!event.message.startsWith(COMMAND_PREFIX)) return;
+
+            event.cancel = true;
+            const args = event.message.slice(1).trim().split(/\s+/);
+            const command = args[0].toLowerCase();
+            const player = event.sender;
+
+            switch (command) {
+                case 'claim':
+                    this.handleClaimCommand(player);
+                    break;
+                case 'unclaim':
+                    this.handleUnclaimCommand(player);
+                    break;
+                case 'info':
+                    this.handleInfoCommand(player);
+                    break;
+                case 'help':
+                    this.handleHelpCommand(player);
+                    break;
+            }
+        });
+
+        system.runInterval(() => {
+            this.savePlots();
+        }, 6000);
+    }
+
+    handleClaimCommand(player) {
+        const plot = this.getPlotAt(player.location);
+        console.warn(`[Plot System] Claim attempt by ${player.name} at ${Location.fromLocation(player.location).toString()}`);
+
+        if (!plot) {
+            player.sendMessage("§c[Plot System] You are not standing in a plot!");
+            return;
+        }
+
+        if (plot.owner) {
+            player.sendMessage(`§c[Plot System] This plot is already owned by ${plot.owner}`);
+            return;
+        }
+
+        plot.owner = player.name;
+        this.savePlots();
+        player.sendMessage("§a[Plot System] Plot claimed successfully!");
+    }
+
+    handleUnclaimCommand(player) {
+        const plot = this.getPlotAt(player.location);
+        if (!plot) {
+            player.sendMessage("§c[Plot System] You are not standing in a plot!");
+            return;
+        }
+
+        if (plot.owner !== player.name) {
+            player.sendMessage("§c[Plot System] You don't own this plot!");
+            return;
+        }
+
+        plot.owner = "";
+        this.savePlots();
+        player.sendMessage("§a[Plot System] Plot unclaimed successfully!");
+    }
+
+    handleInfoCommand(player) {
+        const plot = this.getPlotAt(player.location);
+        if (!plot) {
+            player.sendMessage("§c[Plot System] You are not standing in a plot!");
+            return;
+        }
+
+        const size = plot.boundary.getVolume();
+
+        player.sendMessage([
+            "§e=== Plot Information ===",
+            `§fOwner: ${plot.owner || "None"}`,
+            `§fSize: ${size} blocks`,
+            `§fBoundary: ${plot.boundary.toString()}`,
+            `§fCreated: ${new Date(plot.created).toLocaleString()}`
+        ].join("\n"));
+    }
+
+    handleHelpCommand(player) {
+        player.sendMessage([
+            "§e=== Plot System Commands ===",
+            "§fUse Golden Axe to select plot corners",
+            "§f!claim - Claim the plot you're standing in",
+            "§f!unclaim - Unclaim your plot",
+            "§f!info - View plot information",
+            "§f!help - Show this help message"
+        ].join("\n"));
+    }
+}
+
+// Initialize the plot system
+const plotSystem = new PlotSystem();
