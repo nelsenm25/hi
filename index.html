@@ -1,62 +1,554 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Fortnite V-Bucks Card Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsidian Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        #codeDisplay {
-            margin-top: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #0a0a12;
+            --cyber-red: #ff003c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .cyber-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .neon-header {
+            text-align: center;
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .holographic-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            animation: titleGlitch 1.5s infinite, titleFloat 4s ease-in-out infinite, colorStorm 8s infinite;
+            text-shadow: 0 0 30px var(--neon-purple),
+                         0 0 60px var(--neon-blue),
+                         0 0 90px var(--neon-purple);
+            position: relative;
+            opacity: 1 !important;
+        }
+
+        @keyframes titleGlitch {
+            0% { clip-path: polygon(0 2%, 100% 15%, 100% 5%, 0 25%); transform: skew(5deg); }
+            2% { clip-path: polygon(0 35%, 100% 15%, 100% 35%, 0 15%); transform: skew(-10deg); }
+            4% { clip-path: polygon(0 45%, 100% 25%, 100% 35%, 0 15%); transform: skew(8deg); }
+            6% { clip-path: polygon(0 15%, 100% 25%, 100% 15%, 0 35%); transform: skew(-5deg); }
+            8% { clip-path: polygon(0 35%, 100% 15%, 100% 25%, 0 15%); transform: skew(3deg); }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: skew(0); }
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) rotateZ(-1deg) scale(1); }
+            25% { transform: translateY(-25px) rotateZ(3deg) scale(1.05); }
+            50% { transform: translateY(15px) rotateZ(-3deg) scale(0.95); }
+            75% { transform: translateY(-10px) rotateZ(2deg) scale(1.02); }
+        }
+
+        @keyframes colorStorm {
+            0%, 100% { filter: hue-rotate(0deg); }
+            25% { filter: hue-rotate(90deg); }
+            50% { filter: hue-rotate(180deg); }
+            75% { filter: hue-rotate(270deg); }
+        }
+
+        .cyber-button {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            border: none;
+            padding: 1.5rem 3rem;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 2rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: buttonStorm 1.5s infinite;
+        }
+
+        @keyframes buttonStorm {
+            0% { 
+                box-shadow: 0 0 20px var(--neon-purple),
+                           0 0 40px var(--neon-blue),
+                           0 0 60px var(--neon-purple);
+                transform: scale(1) rotateZ(0deg);
+            }
+            50% { 
+                box-shadow: 0 0 50px var(--neon-purple),
+                           0 0 80px var(--neon-blue),
+                           0 0 110px var(--neon-purple);
+                transform: scale(1.1) rotateZ(2deg);
+            }
+            100% { 
+                box-shadow: 0 0 20px var(--neon-purple),
+                           0 0 40px var(--neon-blue),
+                           0 0 60px var(--neon-purple);
+                transform: scale(1) rotateZ(0deg);
+            }
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -200%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transform: skewX(-45deg);
+            transition: 0.8s;
+        }
+
+        .cyber-button:hover {
+            transform: scale(1.15) skew(-5deg) rotateZ(3deg);
+            animation: none;
+        }
+
+        .cyber-button:hover::before {
+            left: 200%;
+        }
+
+        .cyber-form {
+            background: rgba(10, 10, 18, 0.95);
+            border: 2px solid var(--neon-blue);
+            border-radius: 10px;
+            padding: 3rem;
+            margin: 3rem 0;
+            position: relative;
+            animation: formEntrance 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), formPulse 3s infinite;
+        }
+
+        @keyframes formEntrance {
+            from { 
+                opacity: 0; 
+                transform: perspective(1000px) rotateX(90deg) translateY(150px) scale(0.3); 
+            }
+            to { 
+                opacity: 1; 
+                transform: perspective(1000px) rotateX(0) translateY(0) scale(1); 
+            }
+        }
+
+        @keyframes formPulse {
+            50% { 
+                box-shadow: 0 0 80px rgba(0,243,255,0.4),
+                           0 0 120px rgba(188,19,254,0.4); 
+            }
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .cyber-input {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            transition: 0.3s;
+            appearance: none;
+            background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f3ff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 1rem center/15px 15px;
+            animation: inputGlow 3s infinite;
+        }
+
+        @keyframes inputGlow {
+            50% { box-shadow: 0 0 25px var(--neon-purple); }
+        }
+
+        .cyber-input:focus {
+            outline: none;
+            box-shadow: 0 0 40px var(--neon-purple);
+        }
+
+        .cyber-alert {
+            color: var(--cyber-red);
+            margin-top: 1rem;
+            display: none;
+            text-shadow: 0 0 15px var(--cyber-red);
+            animation: alertPulse 0.8s infinite;
+        }
+
+        @keyframes alertPulse {
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .holographic-title {
+                font-size: 2.8rem;
+                animation: titleFloatMobile 4s ease-in-out infinite;
+            }
+
+            @keyframes titleFloatMobile {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-15px); }
+            }
+
+            .cyber-button {
+                padding: 1rem 2rem;
+                margin: 1rem;
+                width: 100%;
+            }
+
+            .cyber-form {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+
+            .cyber-input {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cyber-container {
+                padding: 1rem;
+            }
+
+            .neon-header {
+                padding: 3rem 0;
+            }
         }
     </style>
 </head>
 <body>
+    <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+    
+    <div class="cyber-container">
+        <header class="neon-header">
+            <h1 class="holographic-title">Obsidian Network</h1>
+            <div>
+                <button class="cyber-button" onclick="showForm('staff')">Apply For Staff</button>
+                <button class="cyber-button" onclick="showForm('bedrock')">Request Bedrock Mod</button>
+            </div>
+        </header>
 
-    <h1>Fortnite V-Bucks Card</h1>
+        <!-- STAFF APPLICATION FORM -->
+        <form id="staffForm" class="cyber-form" style="display: none;" 
+              action="https://formspree.io/f/xdkaojel" 
+              method="POST"
+              onsubmit="return handleSubmit(event, 'staff')">
+              
+            <input type="hidden" name="_subject" value="New Staff Application">
+            <input type="hidden" name="_replyto" value="modernnetwork05@gmail.com">
 
-    <iframe src="https://www.fortnite.com/vbuckscard" width="800" height="600" title="Fortnite V-Bucks Card" frameborder="0"></iframe>
+            <div class="form-group">
+                <label>Discord Username#0000</label>
+                <input type="text" class="cyber-input" name="discord" pattern=".*#\d{4}" required>
+            </div>
 
-    <div id="codeDisplay"></div>
+            <div class="form-group">
+                <label>Minecraft Username</label>
+                <input type="text" class="cyber-input" name="minecraft" required>
+            </div>
 
-    <button onclick="startTesting()">Start Testing Codes</button>
-    <button onclick="stopTesting()">Stop Testing Codes</button>
+            <div class="form-group">
+                <label>Position Applying For</label>
+                <select class="cyber-input" name="position" required>
+                    <option value="">Select Position</option>
+                    <option value="Mod">Moderator</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Builder">Builder</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Hours on Skygen</label>
+                <select class="cyber-input" name="hours" required>
+                    <option value="">Select Hours</option>
+                    <option value="1-2">1-2 hours</option>
+                    <option value="3-5">3-5 hours</option>
+                    <option value="6-8">6-8 hours</option>
+                    <option value="all day">Almost all day</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Any Issues We Should Know About?</label>
+                <textarea class="cyber-input" name="issues" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Why Are You Qualified? (Be Detailed)</label>
+                <textarea class="cyber-input" name="qualified" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Your Age</label>
+                <input type="number" class="cyber-input" name="age" min="14" required>
+            </div>
+
+            <div class="form-group">
+                <label>Target Server</label>
+                <select class="cyber-input" name="server" required>
+                    <option value="">Select Server</option>
+                    <option value="Skygen">Skygen</option>
+                    <option value="KitPvP">KitPvP</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>JavaScript Experience</label>
+                <select class="cyber-input" name="javascript" required>
+                    <option value="">Select Answer</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Scenario 1: Exploiting Bug Response</label>
+                <textarea class="cyber-input" name="scenario1" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Scenario 2: Duplication Glitch Response</label>
+                <textarea class="cyber-input" name="scenario2" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Application Rules</label>
+                <select class="cyber-input" name="confirm1" required>
+                    <option value="">Select Confirmation</option>
+                    <option value="I Confirm">I Confirm</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Your Availability Schedule</label>
+                <textarea class="cyber-input" name="availability" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Response Policy</label>
+                <select class="cyber-input" name="confirm2" required>
+                    <option value="">Select Confirmation</option>
+                    <option value="I Confirm">I Confirm</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Memorable Moment on SkyGen</label>
+                <textarea class="cyber-input" name="memorable" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Prior Staff Experience</label>
+                <textarea class="cyber-input" name="experience" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="cyber-button">Submit Application</button>
+            <div id="staffAlert" class="cyber-alert"></div>
+        </form>
+
+        <!-- BEDROCK MOD FORM -->
+        <form id="bedrockForm" class="cyber-form" style="display: none;" 
+              action="https://formspree.io/f/xkgonego" 
+              method="POST"
+              onsubmit="return handleSubmit(event, 'bedrock')">
+            
+            <input type="hidden" name="_subject" value="Bedrock Mod Request">
+            <input type="hidden" name="_replyto" value="mavn59899@gmail.com">
+
+            <div class="form-group">
+                <label>Your Email</label>
+                <input type="email" class="cyber-input" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Minecraft Gamertag</label>
+                <input type="text" class="cyber-input" name="gamertag" required>
+            </div>
+
+            <div class="form-group">
+                <label>Mod Request Details</label>
+                <textarea class="cyber-input" name="request" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="cyber-button">Submit Request</button>
+            <div id="bedrockAlert" class="cyber-alert"></div>
+        </form>
+    </div>
 
     <script>
-        let testing = false;
-        const codeLength = 16;
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        function generateCode() {
-            let code = '';
-            for (let i = 0; i < codeLength; i++) {
-                code += characters.charAt(Math.floor(Math.random() * characters.length));
+        // Extreme Matrix Rain
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        let drops = [];
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        const fontSize = 14;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drops = Array(Math.floor(canvas.width/fontSize)).fill(0);
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.font = fontSize + 'px monospace';
+
+            drops.forEach((drop, i) => {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                ctx.fillText(text, i * fontSize, drop * fontSize);
+                if(drop * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        setInterval(drawMatrix, 50);
+
+        // Form Handling
+        function showForm(formId) {
+            document.querySelectorAll('.cyber-form').forEach(form => form.style.display = 'none');
+            document.getElementById(formId + 'Form').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleSubmit(e, type) {
+            e.preventDefault();
+            const alertDiv = document.getElementById(type + 'Alert');
+            
+            if(localStorage.getItem(type + 'Submitted')) {
+                alertDiv.style.display = 'block';
+                alertDiv.textContent = 'ERROR: You already submitted this form!';
+                return false;
             }
-            // Add a dash after every 4 characters to make it more readable
-            code = code.match(/.{1,4}/g).join('-');
-            return code;
-        }
 
-        function startTesting() {
-            testing = true;
-            testCode();
-        }
-
-        function stopTesting() {
-            testing = false;
-        }
-
-        function testCode() {
-            if (!testing) return;
-            const code = generateCode();
-            document.getElementById('codeDisplay').textContent = "Testing Code: " + code;
-            // Simulate a delay to make it look like we're testing the code
-            setTimeout(() => {
-                // If testing is still active, test another code
-                if (testing) {
-                    testCode();
+            const formData = new FormData(e.target);
+            
+            fetch(e.target.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if(response.ok) {
+                    localStorage.setItem(type + 'Submitted', 'true');
+                    e.target.reset();
+                    alertDiv.style.display = 'block';
+                    alertDiv.style.color = '#00f3ff';
+                    alertDiv.textContent = 'SUBMISSION SUCCESSFUL!';
+                    
+                    setTimeout(() => {
+                        alertDiv.style.display = 'none';
+                    }, 3000);
                 }
-            }, 100); // Test a new code every 100ms
-        }
-    </script>
+            }).catch(error => {
+                alertDiv.style.display = 'block';
+                alertDiv.textContent = 'ERROR: Submission failed!';
+            });
 
+            return false;
+        }
+
+        // Add particle system for extra effects
+        const particles = [];
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = Math.random() * 2;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if(this.x < 0 || this.x > window.innerWidth || 
+                   this.y < 0 || this.y > window.innerHeight) {
+                    this.reset();
+                }
+            }
+            
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for(let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animate particles
+        function animateParticles() {
+            const ctx = canvas.getContext('2d');
+            particles.forEach(p => {
+                p.update();
+                p.draw(ctx);
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+    </script>
 </body>
 </html>
